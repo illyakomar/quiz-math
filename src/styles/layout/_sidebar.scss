@@ -1,0 +1,48 @@
+.sidebar {
+  height: 100vh;
+  width: 17rem;
+  position: sticky;
+  left: 0;
+  top: 0;
+  bottom: 0;
+
+  &__container {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    margin-top: 56px;
+    gap: 78px;
+  }
+
+  &__logo {
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+
+  &__title {
+    font-size: 20px;
+    color: #696F79;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-align: left;
+  }
+
+  &__list{
+    display: grid;
+    gap: 47px;
+  }
+
+  &__icon {
+    width: 25px;
+    color: #696F79;
+  }
+
+  &__item-container{
+    display: grid;
+    grid-auto-flow: column;
+    gap: 28px;
+  }
+}

@@ -1,0 +1,15 @@
+body {
+  height: 100vh;
+  background-color: #FBF9F9;
+}
+
+.layout {
+  display: flex;
+  height: 100vh;
+  position: relative;
+  gap: 2rem;
+
+  &__main-content {
+    flex-grow: 1;
+  }
+}
