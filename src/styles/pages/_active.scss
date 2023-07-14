@@ -1,15 +1,1 @@
-.active {
-  &__active-container {
-    margin-top: 70px;
-    margin-bottom: 40px;
-    display: grid;
-    justify-items: center;
-    align-items: center;
-  }
 
-  &__table {
-    width: 80%;
-    padding: 40px 40px 20px 40px;
-    @extend %card;
-  }
-}

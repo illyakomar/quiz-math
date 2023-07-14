@@ -5,11 +5,14 @@ body {
 
 .layout {
   display: flex;
-  height: 100vh;
+  height: 100%;
   position: relative;
   gap: 2rem;
 
   &__main-content {
     flex-grow: 1;
+    padding-top: 126px;
+    padding-bottom: 36px;
+    padding-right: 24px;
   }
 }

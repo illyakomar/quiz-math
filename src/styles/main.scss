@@ -11,11 +11,13 @@
 @import "components/alert";
 @import "components/buttons";
 @import "components/modal";
+@import "components/card";
 
 // Layout
 @import "layout/sidebar";
 
 // Pages
-@import "pages/home";
+@import "pages/base";
 @import "pages/login";
 @import "pages/active";
+@import "pages/created";

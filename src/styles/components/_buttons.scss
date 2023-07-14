@@ -1,0 +1,27 @@
+.btn{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  font-weight: 700; 
+  font-size: 16px;
+
+  line-height: 24px;
+  letter-spacing: 0.2px;
+
+  padding: 6.4px 15px;
+
+  border: 0px;
+  border-radius: 50px;
+
+  background-color: #92A69D;
+  color: #fff;
+
+  cursor: pointer;
+
+  transition: background-color ease 0.35s;
+
+  &:hover {
+    background-color: #9eb3a9;
+  }
+}

@@ -20,7 +20,7 @@ const Sidebar = () => {
               <li key={link.id}>
                 <Link
                   className={
-                    currentRoute === link.url
+                    currentRoute.startsWith(link.url)
                       ? "sidebar__item-container sidebar__active"
                       : "sidebar__item-container"
                   }

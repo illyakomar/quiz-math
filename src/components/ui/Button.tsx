@@ -4,11 +4,11 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
 }
 
-export default function CustomButton({ children, ...attributes }: Props) {
+export default function Button({ children, ...attributes }: Props) {
   return (
     <button
       type="button"
-      className="border border-gray-800 px-4 py-2 rounded uppercase"
+      className="btn"
       {...attributes}
     >
       {children}
