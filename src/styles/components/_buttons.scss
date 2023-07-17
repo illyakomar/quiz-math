@@ -1,10 +1,13 @@
 .btn{
   display: flex;
+  justify-content: center;
   align-items: center;
   gap: 10px;
 
   font-weight: 700; 
   font-size: 16px;
+
+  min-width: 125px;
 
   line-height: 24px;
   letter-spacing: 0.2px;
@@ -14,14 +17,26 @@
   border: 0px;
   border-radius: 50px;
 
-  background-color: #92A69D;
   color: #fff;
 
   cursor: pointer;
 
   transition: background-color ease 0.35s;
 
+}
+
+.primary{
+  background-color: #92A69D;
+
   &:hover {
     background-color: #9eb3a9;
+  }
+}
+
+.secondary{
+  background-color: #AAAAAA;
+
+  &:hover{
+    background-color: #BDBDBD;
   }
 }

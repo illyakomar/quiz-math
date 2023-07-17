@@ -4,11 +4,11 @@ export default function Active() {
   return (
     <div className="active-page">
       <div className="course-page__name-container">
-        <span>Мої курси</span>
+        <span>Активні тести</span>
       </div>
       <div className="course-page__button-container">
-        <Button>
-          Додати курс
+        <Button color="primary">
+          Додати тест
         </Button>
       </div>
     </div>

@@ -15,7 +15,7 @@ export default function Created() {
         <div className="page__title">
           <span>Створені тести</span>
         </div>
-        <Button onClick={() => router.push('created/add')}>
+        <Button color="primary" onClick={() => router.push('created/add')}>
           <AiFillPlusCircle />
           Додати тест
         </Button>
