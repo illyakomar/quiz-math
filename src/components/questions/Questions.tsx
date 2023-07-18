@@ -1,10 +1,16 @@
 "use client";
 
-import React from "react";
+import React, { useState } from 'react';
 import { AiOutlinePlus} from "react-icons/ai";
 import Question from "../question/Question";
+import QuestionModal from '../modals/question/Question';
 
 const Questions = () => {
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   return (
     <div className='questions'>
@@ -15,11 +21,12 @@ const Questions = () => {
         <Question />
       </div>
       <div className="questions__button-container">
-        <div className="questions__button">
+        <div className="questions__button" onClick={handleShow}>
           <AiOutlinePlus size={22} />
           <p>Додати</p>
         </div>
       </div>
+      <QuestionModal onStart={show} handleClose={handleClose} />
     </div>
   );
 };

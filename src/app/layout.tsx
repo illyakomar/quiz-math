@@ -1,6 +1,7 @@
 import Sidebar from "@/components/sidebar/Sidebar";
 
 import "./../styles/main.scss";
+import 'react-responsive-modal/styles.css';
 
 export const metadata = {
   title: "Quiz math",

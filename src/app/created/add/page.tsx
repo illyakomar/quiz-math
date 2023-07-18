@@ -2,6 +2,7 @@
 
 import Questions from "@/components/questions/Questions";
 import Button from "@/components/ui/Button";
+import Input from "@/components/ui/Input";
 
 export default function AddQuiz() {
   
@@ -14,8 +15,7 @@ export default function AddQuiz() {
     </div>
     <div className="page__line" />
     <div className="page__input-quiz">
-      <label>Назва тесту</label>
-      <input type="text"></input>
+      <Input name={"text"} label={"Назва тесту"} placeholder="Назва" />
     </div>
     <div className="page__question-container">
     <Questions/>

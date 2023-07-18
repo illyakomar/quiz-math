@@ -7,6 +7,8 @@
   background: #CFC4FF;
   box-shadow: 10px 10px 80px 0px rgba(63, 39, 102, 0.10);
 
+  cursor: pointer;
+
   &__info{
     font-size: 18px;
     font-style: normal;
@@ -17,5 +19,9 @@
   &__image-container{
     display: grid;
     justify-items: center;
+  }
+
+  &:hover{
+    box-shadow: 10px 10px 80px 0px rgba(63, 39, 102, 0.15);
   }
 }
