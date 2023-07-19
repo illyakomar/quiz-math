@@ -1,0 +1,20 @@
+.answer{
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 20px;
+  align-items: end;
+
+  &__icon-delete{
+    cursor: pointer;
+    fill: #696F79;
+    margin-bottom: 12px;
+
+    &:hover{
+      fill: #92A69D;
+    }
+  }
+
+  &__radio{
+    margin-bottom: 15px;
+  }
+}

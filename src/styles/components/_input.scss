@@ -18,3 +18,26 @@
   }
 
 }
+
+.radioBtn {
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+
+  input {
+    display: none;
+  }
+
+  &__checkmark {
+    fill: #696F79;
+    cursor: pointer;
+
+    &:hover{
+      fill: #5ED29E;
+    }
+  }
+
+  input:checked + svg {
+    fill: #5ED29E;
+  }
+}

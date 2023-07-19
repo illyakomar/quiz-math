@@ -1,6 +1,7 @@
 .quiz-modal{
   border-radius: 30px;
   background: #F4F4F4 !important;
+  width: 100%;
 }
 
 .question-modal{
@@ -16,6 +17,20 @@
     font-style: normal;
     font-weight: 600;
     line-height: normal;
+  }
 
+  &__answer-container{
+    display: grid;
+    gap: 17px;
+
+    margin-top: 17px;
+  }
+
+  &__button-footer{
+    display: grid;
+    gap:30px;
+    grid-auto-flow: column;
+    justify-content: center;
+    margin-top: 30px;
   }
 }
