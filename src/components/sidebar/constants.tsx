@@ -1,21 +1,23 @@
 import { AiFillDiff, AiFillCarryOut, AiFillContainer } from "react-icons/ai";
 
+const URL_SHARED_SEGMENT = '/dashboard';
+
 export const sidebarData = [
   {
     id: 1,
-    url: "/created",
+    url: `${URL_SHARED_SEGMENT}/created`,
     title: "Створені",
     icon: <AiFillDiff size={25} />,
   },
   {
     id: 2,
-    url: "/active",
+    url: `${URL_SHARED_SEGMENT}/active`,
     title: "Активні",
     icon: <AiFillCarryOut size={25} />,
   },
   {
     id: 3,
-    url: "/completed",
+    url: `${URL_SHARED_SEGMENT}/completed`,
     title: "Завершені",
     icon: <AiFillContainer size={25} />,
   },

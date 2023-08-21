@@ -10,8 +10,8 @@ const Question = () => {
       <p className='question__text'>№1</p>
       <p className='question__text'>Які структури даних реалізовує мова програмування JS та інші мови програмування </p>
       <div className="question__icon-container">
-          <AiFillEdit className="question__icon" />
-          <AiFillDelete className="question__icon" />
+        <AiFillEdit className="question__icon" />
+        <AiFillDelete className="question__icon" />
       </div>
     </div>
   );

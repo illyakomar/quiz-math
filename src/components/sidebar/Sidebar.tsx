@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { sidebarData } from "./constant";
+import { sidebarData } from "./constants";
 import { BiSolidLogOut } from "react-icons/bi";
 
 const Sidebar = () => {
