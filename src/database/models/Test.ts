@@ -16,6 +16,7 @@ const testSchema = new Schema({
     enum: Status,
   },
   questions: [{ type: ObjectId, ref: 'Question' }],
+  result: [{ type: ObjectId, ref: 'Result' }],
 });
 
 export default mongoose.models.BaseTest.discriminators?.Test ||
