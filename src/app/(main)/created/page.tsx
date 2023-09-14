@@ -1,35 +1,27 @@
-import { AiFillPlusCircle } from 'react-icons/ai';
-import { useRouter } from 'next/navigation';
-
-import Button from '@/components/ui/Button';
-import Card from '@/components/card/Card';
-import connect from '@/database/connection';
-import Test from '@/database/models/Test';
+import Card from "@/components/card/Card";
+import TestButton from "@/components/ui/TestButton";
+import connect from "@/database/connection";
+import Test from "@/database/models/Test";
 
 export default async function Created() {
-  // const router = useRouter();
-
   await connect();
 
   const tests = await Test.find();
 
+  const listCard = tests.map((test) => (
+    <Card key={test._id} id={test._id} name={test.title} />
+  ));
+
   return (
-    <div className='page'>
-      <div className='page__title-container'>
-        <div className='page__title'>
+    <>
+      <div className="page__title-container">
+        <div className="page__title">
           <span>Створені тести</span>
         </div>
-        {/* <Button color='primary' onClick={() => router.push('created/add')}>
-          <AiFillPlusCircle />
-          Додати тест
-        </Button> */}
+        <TestButton />
       </div>
-      <div className='page__line' />
-      <div className='page__card-container'>
-        {tests.map((_, index) => (
-          <Card key={index} />
-        ))}
-      </div>
-    </div>
+      <div className="page__line" />
+      <div className="page__card-container">{listCard}</div>
+    </>
   );
 }
