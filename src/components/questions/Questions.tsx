@@ -1,21 +1,20 @@
 "use client";
 
-import React, { useState } from 'react';
-import { AiOutlinePlus} from "react-icons/ai";
+import React, { useState } from "react";
+import { AiOutlinePlus } from "react-icons/ai";
 import Question from "../question/Question";
-import QuestionModal from '../modals/question/Question';
+import QuestionModal from "../modals/question/Question";
 
 const Questions = () => {
-
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   return (
-    <div className='questions'>
-      <p className='questions__title'>Питання:</p>
-      <div className='questions__list'>
+    <div className="questions">
+      <p className="questions__title">Питання:</p>
+      <div className="questions__list">
         <Question />
         <Question />
         <Question />
