@@ -1,22 +1,22 @@
 import mongoose from 'mongoose';
 
+import BaseTest from './base/Test';
+
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
 
-enum Status {
+export enum Status {
   ACTIVE = 'ACTIVE',
   FINISHED = 'FINISHED',
 }
 
-const testSchema = new Schema(
-  {
-    status: {
-      type: String,
-      enum: Status,
-    },
-    testTemplate: { type: ObjectId, ref: 'TestTemplate' },
+const testSchema = new Schema({
+  status: {
+    type: String,
+    enum: Status,
   },
-  { timestamps: true },
-);
+  questions: [{ type: ObjectId, ref: 'Question' }],
+});
 
-export default mongoose.models.Test || mongoose.model('Test', testSchema);
+export default mongoose.models.BaseTest.discriminators?.Test ||
+  BaseTest.discriminator('Test', testSchema);

@@ -1,14 +1,13 @@
 import mongoose from 'mongoose';
 
+import BaseTest from './base/Test';
+
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
 
-const testTemplateSchema = new Schema(
-  {
-    title: String,
-    questions: [{ type: ObjectId, ref: 'Question' }],
-  },
-  { timestamps: true },
-);
+const testTemplateSchema = new Schema({
+  questionTemplates: [{ type: ObjectId, ref: 'QuestionTemplate' }],
+});
 
-export default mongoose.models.TestTemplate || mongoose.model('TestTemplate', testTemplateSchema);
+export default mongoose.models.BaseTest.discriminators?.TestTemplate ||
+  BaseTest.discriminator('TestTemplate', testTemplateSchema);

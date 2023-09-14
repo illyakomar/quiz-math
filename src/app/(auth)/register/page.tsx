@@ -1,8 +1,9 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRouter } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 import { Controller, useForm } from 'react-hook-form';
+import { useSession } from 'next-auth/react';
 
 import Input from '@/components/ui/Input';
 import Button from '@/components/ui/Button';
