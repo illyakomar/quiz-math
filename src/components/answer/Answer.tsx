@@ -1,15 +1,14 @@
 "use client";
 
 import React from "react";
-import { AiFillDelete} from "react-icons/ai";
+import { AiFillDelete } from "react-icons/ai";
 
 import Input from "@/components/ui/Input";
 import Radio from "@/components/ui/Radio";
 
 const Answer = () => {
-
   return (
-    <div className='answer'>
+    <div className="answer">
       <div className="answer__radio">
         <Radio name="btn1" value="1" />
       </div>

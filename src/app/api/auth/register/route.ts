@@ -1,8 +1,8 @@
-import { NextRequest, NextResponse } from 'next/server';
-import bcrypt from 'bcrypt';
+import { NextRequest, NextResponse } from "next/server";
+import bcrypt from "bcrypt";
 
-import connect from '@/database/connection';
-import User from '@/database/models/User';
+import connect from "@/database/connection";
+import User from "@/database/models/User";
 
 export const POST = async (request: NextRequest) => {
   const { firstName, lastName, email, password } = await request.json();
@@ -20,7 +20,7 @@ export const POST = async (request: NextRequest) => {
 
   try {
     await newUser.save();
-    return new NextResponse('User has been created', {
+    return new NextResponse("User has been created", {
       status: 201,
     });
   } catch (error: any) {

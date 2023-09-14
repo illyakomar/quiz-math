@@ -1,3 +1,13 @@
 export default function Completed() {
-  return <h1>Hello, Completed page!</h1>;
+  return (
+    <>
+      <div className="page__title-container">
+        <div className="page__title">
+          <span>Завершені тести</span>
+        </div>
+      </div>
+      <div className="page__line" />
+      <div className="page__card-container"></div>
+    </>
+  );
 }

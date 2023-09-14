@@ -1,6 +1,7 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const { Schema } = mongoose;
+const { ObjectId } = Schema.Types;
 
 const userSchema = new Schema(
   {
@@ -8,8 +9,9 @@ const userSchema = new Schema(
     lastName: String,
     email: String,
     password: String,
+    tests: [{ type: ObjectId, ref: "Test" }],
   },
-  { timestamps: true },
+  { timestamps: true }
 );
 
-export default mongoose.models.User || mongoose.model('User', userSchema);
+export default mongoose.models.User || mongoose.model("User", userSchema);

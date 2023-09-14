@@ -29,6 +29,7 @@
     "zod": "^3.22.2"
   },
   "devDependencies": {
+    "@types/mongoose": "^5.11.97",
     "sass": "^1.63.6"
   }
 }
