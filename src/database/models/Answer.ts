@@ -1,13 +1,7 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const { Schema } = mongoose;
 
-const answerSchema = new Schema(
-  {
-    text: String,
-    isCorrect: Boolean,
-  },
-  { timestamps: true }
-);
+const answerSchema = new Schema();
 
-export default mongoose.models.Answer || mongoose.model("Answer", answerSchema);
+export default mongoose.models.Answer || mongoose.model('Answer', answerSchema);

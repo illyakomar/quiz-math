@@ -1,24 +1,11 @@
-'use client';
-
-import { useEffect } from 'react';
 import Image from 'next/image';
-import { redirect, usePathname, useRouter } from 'next/navigation';
-import { useSession } from 'next-auth/react';
 
 import '@/styles/pages/_auth.scss';
+import { headers } from 'next/dist/client/components/headers';
 
 export default function AuthTemplate({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname();
-  const router = useRouter();
-  const session = useSession();
-
-  // if (session.status === 'authenticated') {
-  //   redirect('/created');
-  // }
-
-  if (session.status === 'loading') {
-    return <p>Loading...</p>;
-  }
+  const url = headers().get('x-url');
+  console.log(url);
 
   return (
     <div className='auth-page'>
@@ -26,7 +13,7 @@ export default function AuthTemplate({ children }: { children: React.ReactNode }
         <div className='auth-page__left-container'>
           <Image
             className='left-container__image'
-            src={pathname === '/login' ? '/manLaptop.png' : '/womanLaptop.png'}
+            src={'/manLaptop.png'}
             width={640}
             height={450}
             alt=''
