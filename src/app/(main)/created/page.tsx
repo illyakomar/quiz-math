@@ -1,12 +1,12 @@
 import Card from "@/components/card/Card";
 import TestButton from "@/components/ui/TestButton";
 import connect from "@/database/connection";
-import Test from "@/database/models/Test";
+import TestTemplate from "@/database/models/TestTemplate";
 
 export default async function Created() {
   await connect();
 
-  const tests = await Test.find();
+  const tests = await TestTemplate.find();
 
   const listCard = tests.map((test) => (
     <Card key={test._id} id={test._id} name={test.title} />
