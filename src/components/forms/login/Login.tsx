@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Controller, useForm } from 'react-hook-form';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { signIn } from 'next-auth/react';
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Controller, useForm } from "react-hook-form";
+import { useRouter, useSearchParams } from "next/navigation";
+import { signIn } from "next-auth/react";
 
-import Button from '@/components/ui/Button';
-import Input from '@/components/ui/Input';
-import { LoginSchemaType } from '@/app/(auth)/login/types';
-import { loginSchema } from '@/app/(auth)/login/schemas';
+import Button from "@/components/ui/Button";
+import Input from "@/components/ui/Input";
+import { LoginSchemaType } from "@/app/(auth)/login/types";
+import { loginSchema } from "@/app/(auth)/login/schemas";
 
 export default function LoginForm() {
   const {
@@ -16,8 +16,8 @@ export default function LoginForm() {
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<LoginSchemaType>({
-    mode: 'onTouched',
-    reValidateMode: 'onChange',
+    mode: "onTouched",
+    reValidateMode: "onChange",
     resolver: zodResolver(loginSchema),
   });
 
@@ -25,10 +25,10 @@ export default function LoginForm() {
   const searchParams = useSearchParams();
 
   const handleLoginSubmit = async (data: LoginSchemaType) => {
-    const result = await signIn('credentials', { ...data, redirect: false });
+    const result = await signIn("credentials", { ...data, redirect: false });
     console.log(result);
     if (result?.error) return;
-    const callbackUrl = searchParams.get('callbackUrl') || '/created';
+    const callbackUrl = searchParams.get("callbackUrl") || "/created";
     router.replace(callbackUrl);
   };
 
@@ -78,7 +78,7 @@ export default function LoginForm() {
         <p className='right-container__form-buttons-divider'>
           <span className='right-container__form-buttons-divider-text'>Або</span>
         </p>
-        <Button color='secondary' onClick={() => router.push('register')}>
+        <Button color='secondary' onClick={() => router.push("register")}>
           Реєстрація
         </Button>
       </div>

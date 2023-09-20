@@ -12,15 +12,15 @@ const Questions = () => {
   const handleShow = () => setShow(true);
 
   return (
-    <div className="questions">
-      <p className="questions__title">Питання:</p>
-      <div className="questions__list">
+    <div className='questions'>
+      <p className='questions__title'>Питання:</p>
+      <div className='questions__list'>
         <Question />
         <Question />
         <Question />
       </div>
-      <div className="questions__button-container">
-        <div className="questions__button" onClick={handleShow}>
+      <div className='questions__button-container'>
+        <div className='questions__button' onClick={handleShow}>
           <AiOutlinePlus size={22} />
           <p>Додати</p>
         </div>
