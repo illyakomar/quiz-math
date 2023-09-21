@@ -1,15 +1,16 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const { Schema } = mongoose;
 
 const baseTestSchema = new Schema(
   {
     title: String,
+    color: String,
   },
   {
-    collection: 'tests',
+    collection: "tests",
     timestamps: true,
-  },
+  }
 );
 
-export default mongoose.models.BaseTest || mongoose.model('BaseTest', baseTestSchema);
+export default mongoose.models.BaseTest || mongoose.model("BaseTest", baseTestSchema);

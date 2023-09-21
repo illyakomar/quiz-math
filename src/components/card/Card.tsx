@@ -2,25 +2,28 @@
 
 import React from "react";
 import Image from "next/image";
-import Test from "@/database/models/Test";
+import { useRouter } from "next/navigation";
 
 interface Props {
-  name: string;
   id: string;
+  name: string;
+  color: string;
+  route: string;
 }
 
 const Card = (props: Props) => {
-  const { name, id } = props;
+  const { id, name, color, route } = props;
 
-  const onCardClick = () => console.log(id);
+  const router = useRouter();
+
+  const onCardClick = () => router.push(`${route}/${id}`);
 
   return (
-    <div className="card">
-      <div className="card__image-container">
-        <Image src="/manMap.png" width={110} height={110} alt="Quiz" />
+    <div className='card' onClick={onCardClick} style={{ backgroundColor: color }}>
+      <div className='card__image-container'>
+        <Image src='/bookone.png' width={110} height={110} alt='Quiz' />
       </div>
-      <p className="card__info">{name}</p>
-      <p className="card__info"></p>
+      <p className='card__info'>{name}</p>
     </div>
   );
 };

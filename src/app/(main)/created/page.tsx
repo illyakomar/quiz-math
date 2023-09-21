@@ -1,7 +1,7 @@
-import { Suspense } from 'react';
+import Link from 'next/link';
+import { AiFillPlusCircle } from 'react-icons/ai';
 
 import Card from '@/components/card/Card';
-import TestButton from '@/components/ui/TestButton';
 import connect from '@/database/connection';
 import TestTemplate from '@/database/models/TestTemplate';
 
@@ -11,9 +11,13 @@ export default async function Created() {
   const tests = await TestTemplate.find();
 
   const listCard = tests.map((test) => (
-    <Suspense key={test._id} fallback={<p>loading...</p>}>
-      <Card id={test._id.toString()} name={test.title} />
-    </Suspense>
+    <Card
+      key={test._id}
+      id={test._id.toString()}
+      name={test.title}
+      color={test.color}
+      route='created'
+    />
   ));
 
   return (
@@ -22,7 +26,10 @@ export default async function Created() {
         <div className='page__title'>
           <span>Створені тести</span>
         </div>
-        <TestButton />
+        <Link href='created/add' className='btn primary'>
+          <AiFillPlusCircle />
+          Додати тест
+        </Link>
       </div>
       <div className='page__line' />
       <div className='page__card-container'>{listCard}</div>

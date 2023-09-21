@@ -135,7 +135,7 @@ ul {
 a {
   background: transparent;
   text-decoration: none;
-  color: inherit
+  color: inherit;
 }
 
 // Addresses FF3/4 setting line-height on 'input' using !important in the UA stylesheet
@@ -184,4 +184,9 @@ input:focus {
 input {
   margin: 0;
   padding: 0;
+}
+
+button,
+input {
+  font-family: inherit;
 }

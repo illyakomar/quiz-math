@@ -1,10 +1,10 @@
-.btn{
+.btn {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 10px;
 
-  font-weight: 700; 
+  font-weight: 700;
   font-size: 16px;
 
   min-width: 125px;
@@ -22,21 +22,37 @@
   cursor: pointer;
 
   transition: background-color ease 0.35s;
-
 }
 
-.primary{
-  background-color: #92A69D;
+.primary {
+  background-color: #92a69d;
 
   &:hover {
     background-color: #9eb3a9;
   }
 }
 
-.secondary{
-  background-color: #AAAAAA;
+.secondary {
+  background-color: #aaaaaa;
 
-  &:hover{
-    background-color: #BDBDBD;
+  &:hover {
+    background-color: #bdbdbd;
+  }
+}
+
+.rounded {
+  border-radius: 0px 30px 30px 0px;
+  min-width: fit-content;
+  position: relative;
+
+  &::before {
+    content: "";
+    width: 20px;
+    height: 62px;
+    background-color: #fff;
+    display: inline-block;
+    position: absolute;
+    left: -20px;
+    top: 0;
   }
 }
