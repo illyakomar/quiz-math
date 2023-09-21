@@ -1,11 +1,12 @@
+'use client';
+
 import Image from 'next/image';
 
 import '@/styles/pages/_auth.scss';
-import { headers } from 'next/dist/client/components/headers';
+import { usePathname } from 'next/navigation';
 
 export default function AuthTemplate({ children }: { children: React.ReactNode }) {
-  const url = headers().get('x-url');
-  console.log(url);
+  const pathname = usePathname();
 
   return (
     <div className='auth-page'>
@@ -13,7 +14,8 @@ export default function AuthTemplate({ children }: { children: React.ReactNode }
         <div className='auth-page__left-container'>
           <Image
             className='left-container__image'
-            src={'/manLaptop.png'}
+            src={pathname === '/login' ? '/manLaptop.png' : '/womanLaptop.png'}
+            priority
             width={640}
             height={450}
             alt=''

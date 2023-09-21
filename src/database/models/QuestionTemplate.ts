@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
 
+import BaseQuestion from './base/Question';
+
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
 
@@ -8,5 +10,5 @@ const questionTemplateSchema = new Schema({
   answer: [{ type: ObjectId, ref: 'Answer' }],
 });
 
-export default mongoose.models.QuestionTemplate ||
-  mongoose.model('QuestionTemplate', questionTemplateSchema);
+export default mongoose.models.BaseTest.discriminators?.QuestionTemplate ||
+  BaseQuestion.discriminator('QuestionTemplate', questionTemplateSchema);

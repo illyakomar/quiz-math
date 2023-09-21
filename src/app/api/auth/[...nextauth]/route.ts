@@ -19,7 +19,7 @@ export const authOptions: AuthOptions = {
         password: { type: 'password' },
       },
       async authorize(credentials) {
-        if (!credentials) throw new Error('Error');
+        if (!credentials) throw new Error('Сталася помилка!');
 
         await connect();
 
@@ -29,17 +29,17 @@ export const authOptions: AuthOptions = {
           });
 
           if (!user) {
-            throw new Error('User not found!');
+            throw new Error('Неправильний email або пароль!');
           }
 
           const isPasswordCorrect = await bcrypt.compare(credentials?.password, user.password);
           if (!isPasswordCorrect) {
-            throw new Error('Wrong Credentials!');
+            throw new Error('Неправильний email або пароль!');
           }
 
           return user;
         } catch (error: any) {
-          throw new Error(error);
+          throw new Error(error.message);
         }
       },
     }),
@@ -47,6 +47,7 @@ export const authOptions: AuthOptions = {
   session: { strategy: 'jwt' },
   pages: {
     signIn: '/login',
+    error: '/login',
   },
   debug: process.env.NODE_ENV === 'development',
 };
