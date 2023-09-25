@@ -1,11 +1,11 @@
-import Card from "@/components/card/Card";
-import connect from "@/database/connection";
-import Test from "@/database/models/Test";
+import Card from '@/components/card/Card';
+import connect from '@/database/connection';
+import Test from '@/database/models/Test';
 
 export default async function Active() {
   await connect();
 
-  const tests = await Test.find({ status: "ACTIVE" });
+  const tests = await Test.find({ status: 'ACTIVE' });
 
   const listCard = tests.map((test) => (
     <Card

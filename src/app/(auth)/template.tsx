@@ -4,6 +4,7 @@ import Image from 'next/image';
 
 import '@/styles/pages/_auth.scss';
 import { usePathname } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 
 export default function AuthTemplate({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
