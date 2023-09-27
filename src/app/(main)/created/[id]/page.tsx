@@ -1,7 +1,7 @@
-import QuestionInfo from "@/components/forms/questionInfo/QuestionInfo";
-import TestTemplate from "@/database/models/TestTemplate";
-import connect from "@/database/connection";
-import TestControl from "@/components/testControl/TestControl";
+import QuestionInfo from '@/components/forms/questionInfo/QuestionInfo';
+import TestTemplate from '@/database/models/testTemplate.model';
+import connect from '@/database/connection';
+import TestControl from '@/components/testControl/TestControl';
 
 export default async function Page({ params }: { params: { id: string } }) {
   await connect();

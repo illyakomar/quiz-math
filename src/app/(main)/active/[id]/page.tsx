@@ -1,6 +1,6 @@
-import Test from "@/database/models/Test";
-import connect from "@/database/connection";
-import Results from "@/components/forms/results/Results";
+import Test from '@/database/models/test.model';
+import connect from '@/database/connection';
+import Results from '@/components/forms/results/Results';
 
 export default async function Page({ params }: { params: { id: string } }) {
   await connect();

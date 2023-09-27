@@ -1,5 +1,6 @@
-import mongoose, { Schema, Document, Types } from 'mongoose';
+import mongoose, { Types, Document } from 'mongoose';
 
+const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
 
 export interface UserInput {
@@ -18,13 +19,29 @@ export interface UserDocument extends UserInput, Document {
 
 const userSchema = new Schema(
   {
-    firstName: String,
-    lastName: String,
-    email: String,
-    password: String,
+    firstName: {
+      type: String,
+      required: true,
+    },
+    lastName: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
     tests: [{ type: ObjectId, ref: 'Test' }],
   },
   { timestamps: true },
 );
+
+userSchema.virtual('fullName').get(function () {
+  return `${this.firstName} ${this.lastName}`;
+});
 
 export default mongoose.models.User || mongoose.model<UserDocument>('User', userSchema);

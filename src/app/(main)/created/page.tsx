@@ -3,7 +3,7 @@ import { AiFillPlusCircle } from 'react-icons/ai';
 
 import Card from '@/components/card/Card';
 import connect from '@/database/connection';
-import TestTemplate from '@/database/models/TestTemplate';
+import TestTemplate from '@/database/models/testTemplate.model';
 
 export default async function Created() {
   await connect();
