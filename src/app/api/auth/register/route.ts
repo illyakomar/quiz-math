@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 
 import connect from '@/database/connection';
 import User from '@/database/models/user.model';
+import UserService from '@/database/services/user.service';
 
 export const POST = async (request: NextRequest) => {
   const { firstName, lastName, email, password } = await request.json();
@@ -18,15 +19,13 @@ export const POST = async (request: NextRequest) => {
 
   const hashedPassword = await bcrypt.hash(password, 5);
 
-  const newUser = new User({
-    firstName,
-    lastName,
-    email,
-    password: hashedPassword,
-  });
-
   try {
-    await newUser.save();
+    await UserService.createOne({
+      firstName,
+      lastName,
+      email,
+      password: hashedPassword,
+    });
     return new NextResponse('User has been created', {
       status: 201,
     });

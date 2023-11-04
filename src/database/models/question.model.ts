@@ -1,12 +1,12 @@
 import mongoose, { Document } from 'mongoose';
 
-import { answerSchema } from './answer.model';
+import { AnswerInput, answerSchema } from './answer.model';
 
 const { Schema } = mongoose;
 
 export interface QuestionInput {
-  firstName: string;
-  lastName: string;
+  text: string;
+  answers: AnswerInput[];
 }
 
 export interface QuestionDocument extends QuestionInput, Document {
@@ -24,6 +24,3 @@ export const questionSchema = new Schema(
   },
   { timestamps: true },
 );
-
-export default mongoose.models.Question ||
-  mongoose.model<QuestionDocument>('Question', questionSchema);

@@ -1,11 +1,11 @@
 import NextAuth, { AuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import bcrypt from 'bcrypt';
 
 import connect from '@/database/connection';
-import User, { UserDocument } from '@/database/models/user.model';
+import { UserDocument } from '@/database/models/user.model';
 import EnvService from '@/env/env.service';
 import { EnvEnum } from '@/env/env.enum';
+import UserService from '@/database/services/user.service';
 
 export const authOptions: AuthOptions = {
   secret: EnvService.get(EnvEnum.NEXTAUTH_SECRET),
@@ -26,20 +26,21 @@ export const authOptions: AuthOptions = {
         await connect();
 
         try {
-          const user = await User.findOne({
+          const user = await UserService.selectOne({
             email: credentials?.email,
           });
+          console.log(user);
 
           if (!user) {
             throw new Error('Неправильний email або пароль!');
           }
 
-          const isPasswordCorrect = await bcrypt.compare(credentials?.password, user.password);
+          const isPasswordCorrect = await user.comparePassword(credentials.password);
           if (!isPasswordCorrect) {
             throw new Error('Неправильний email або пароль!');
           }
 
-          return user;
+          return user as any;
         } catch (error: any) {
           throw new Error(error.message);
         }

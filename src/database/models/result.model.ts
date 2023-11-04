@@ -21,4 +21,5 @@ const resultSchema = new Schema(
   { timestamps: true },
 );
 
-export default mongoose.models.Result || mongoose.model<ResultDocument>('Result', resultSchema);
+export default mongoose.models.Result<ResultDocument> ||
+  mongoose.model<ResultDocument>('Result', resultSchema);

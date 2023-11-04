@@ -1,17 +1,17 @@
 'use client';
 
-import { zodResolver } from '@hookform/resolvers/zod';
+import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import { Toaster } from 'react-hot-toast';
 import { Controller, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 import Input from '@/components/ui/Input';
 import Button from '@/components/ui/Button';
-import { RegisterSchemaType } from '@/app/(auth)/register/types';
-import { registerSchema } from '@/app/(auth)/register/schemas';
+import { registerSchema } from '@/components/forms/register/schemas';
 import { notifyError, notifySuccess } from '@/lib/helpers';
-import { Toaster } from 'react-hot-toast';
-import { signIn } from 'next-auth/react';
-import { ApiService } from '@/lib/api/services/api';
+import { RegisterSchemaType } from './types';
+import { UserApiService } from '@/lib/api/services/user.service';
 
 export default function RegisterForm() {
   const {
@@ -19,7 +19,7 @@ export default function RegisterForm() {
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<RegisterSchemaType>({
-    mode: 'onTouched',
+    mode: 'onSubmit',
     reValidateMode: 'onChange',
     resolver: zodResolver(registerSchema),
   });
@@ -29,7 +29,7 @@ export default function RegisterForm() {
   const handleRegisterSubmit = async (data: RegisterSchemaType): Promise<void> => {
     const { email, password } = data;
 
-    const response = await ApiService.post('/api/auth/register', data);
+    const response = await UserApiService.createOne(data);
     if (response.error) {
       notifyError(response.error);
       return;
@@ -49,91 +49,85 @@ export default function RegisterForm() {
       <h2 className='right-container__form-title'>Реєстрація</h2>
       <hr className='right-container__form-divider' />
       <div className='right-container__form-inputs'>
-        <div className='right-container__form-input'>
+        <div className='form-input'>
           <Controller
             control={control}
             name='firstName'
-            //defaultValue=''
-            render={({ field: { onBlur, onChange, value } }) => (
+            defaultValue=''
+            render={({ field: { onChange, onBlur, value } }) => (
               <Input
                 type='text'
                 name='name'
                 label="Ім'я"
                 placeholder="Введіть ім'я"
-                onBlur={onBlur}
                 onChange={onChange}
+                onBlur={onBlur}
                 value={value}
                 disabled={isSubmitting}
               />
             )}
           />
-          {errors.firstName && (
-            <p className='right-container__form-error'>{errors.firstName.message}</p>
-          )}
+          {errors.firstName && <p className='form-error'>{errors.firstName.message}</p>}
         </div>
-        <div className='right-container__form-input'>
+        <div className='form-input'>
           <Controller
             control={control}
             name='lastName'
-            //defaultValue=''
-            render={({ field: { onBlur, onChange, value } }) => (
+            defaultValue=''
+            render={({ field: { onChange, onBlur, value } }) => (
               <Input
                 type='text'
                 name='lastname'
                 label='Прізвище'
                 placeholder='Введіть прізвище'
-                onBlur={onBlur}
                 onChange={onChange}
+                onBlur={onBlur}
                 value={value}
                 disabled={isSubmitting}
               />
             )}
           />
-          {errors.lastName && (
-            <p className='right-container__form-error'>{errors.lastName.message}</p>
-          )}
+          {errors.lastName && <p className='form-error'>{errors.lastName.message}</p>}
         </div>
-        <div className='right-container__form-input'>
+        <div className='form-input'>
           <Controller
             control={control}
             name='email'
-            //defaultValue=''
-            render={({ field: { onBlur, onChange, value } }) => (
+            defaultValue=''
+            render={({ field: { onChange, onBlur, value } }) => (
               <Input
                 type='email'
                 name='email'
                 label='Пошта'
                 placeholder='email@gmail.com'
-                onBlur={onBlur}
                 onChange={onChange}
+                onBlur={onBlur}
                 value={value}
                 disabled={isSubmitting}
               />
             )}
           />
-          {errors.email && <p className='right-container__form-error'>{errors.email.message}</p>}
+          {errors.email && <p className='form-error'>{errors.email.message}</p>}
         </div>
-        <div className='right-container__form-input'>
+        <div className='form-input'>
           <Controller
             control={control}
             name='password'
-            //defaultValue=''
-            render={({ field: { onBlur, onChange, value } }) => (
+            defaultValue=''
+            render={({ field: { onChange, onBlur, value } }) => (
               <Input
                 type='text'
                 name='password'
                 label='Пароль'
                 placeholder='Введіть пароль'
-                onBlur={onBlur}
                 onChange={onChange}
+                onBlur={onBlur}
                 value={value}
                 disabled={isSubmitting}
               />
             )}
           />
-          {errors.password && (
-            <p className='right-container__form-error'>{errors.password.message}</p>
-          )}
+          {errors.password && <p className='form-error'>{errors.password.message}</p>}
         </div>
       </div>
       <div className='right-container__form-buttons'>

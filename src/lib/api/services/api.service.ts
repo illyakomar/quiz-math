@@ -1,3 +1,6 @@
+import { Document } from 'mongoose';
+import { ApiResponse } from '../types';
+
 enum Methods {
   GET = 'GET',
   POST = 'POST',
@@ -11,12 +14,16 @@ export abstract class ApiService {
     url: string,
     data?: any,
     headers?: HeadersInit,
-  ): Promise<any> {
+  ): Promise<ApiResponse<T>> {
     try {
       const requestBody = method === Methods.DELETE ? { data } : data;
-      const response = await fetch(url, { method, headers, body: JSON.stringify(requestBody) });
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/${url}`, {
+        method,
+        headers,
+        body: JSON.stringify(requestBody),
+      });
       if (!response.ok) throw Error(await response.text());
-      return { data: await response.json() };
+      return { status: response.status, data: (await response.json()) as T };
     } catch (error: any) {
       console.log(error);
       return { error: error.message };
@@ -28,18 +35,26 @@ export abstract class ApiService {
     url: string,
     data?: any,
     headers?: HeadersInit,
-  ): Promise<any> {
+  ): Promise<ApiResponse<T>> {
     return this.makeRequest<T>(method, url, data, {
       ...headers,
       'Content-Type': 'application/json',
     });
   }
 
-  public static async get<T = any>(url: string, data?: any, headers?: HeadersInit): Promise<any> {
+  public static async get<T = any>(
+    url: string,
+    data?: any,
+    headers?: HeadersInit,
+  ): Promise<ApiResponse<T>> {
     return this.makeRequest<T>(Methods.GET, url, data, headers);
   }
 
-  public static async post<T = any>(url: string, data?: any, headers?: HeadersInit): Promise<any> {
+  public static async post<T = any>(
+    url: string,
+    data?: any,
+    headers?: HeadersInit,
+  ): Promise<ApiResponse<T>> {
     return this.makeRequestWithBody<T>(Methods.POST, url, data, headers);
   }
 
@@ -47,7 +62,7 @@ export abstract class ApiService {
     url: string,
     data?: any,
     headers?: HeadersInit,
-  ): Promise<any> {
+  ): Promise<ApiResponse<T>> {
     return this.makeRequestWithBody<T>(Methods.PATCH, url, data, headers);
   }
 
@@ -55,7 +70,7 @@ export abstract class ApiService {
     url: string,
     data?: any,
     headers?: HeadersInit,
-  ): Promise<any> {
+  ): Promise<ApiResponse<T>> {
     return this.makeRequestWithBody<T>(Methods.DELETE, url, data, headers);
   }
 }

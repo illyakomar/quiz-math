@@ -47,3 +47,14 @@
     justify-content: space-between;
   }
 }
+
+.form-input {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-error {
+  font-size: 13px;
+  color: #ff0101;
+}

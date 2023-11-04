@@ -25,5 +25,3 @@ export const answerSchema = new Schema(
   },
   { timestamps: true },
 );
-
-export default mongoose.models.Answer || mongoose.model<AnswerDocument>('Answer', answerSchema);

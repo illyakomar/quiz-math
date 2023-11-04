@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import Button from "../ui/Button";
-import QuizInfo from "../modals/quizInfo/QuizInfo";
+import React, { useState } from 'react';
+import Button from '../ui/Button';
+import QuizInfo from '../modals/quizInfo/QuizInfo';
 
 interface Props {}
 

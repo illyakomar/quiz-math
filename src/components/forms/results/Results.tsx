@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import React from "react";
-import Participant from "@/components/participant/Participant";
-import TestControl from "@/components/testControl/TestControl";
+import React from 'react';
+import Participant from '@/components/participant/Participant';
+import TestControl from '@/components/testControl/TestControl';
 
 const Results = () => {
   return (

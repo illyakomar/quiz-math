@@ -1,4 +1,5 @@
 import mongoose, { Types, Document } from 'mongoose';
+import bcrypt from 'bcrypt';
 
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
@@ -8,13 +9,14 @@ export interface UserInput {
   lastName: string;
   email: string;
   password: string;
-  tests: Types.ObjectId[];
+  tests?: Types.ObjectId[];
 }
 
 export interface UserDocument extends UserInput, Document {
   fullName: string;
   createdAt: Date;
   updatedAt: Date;
+  comparePassword: (password: string) => Promise<boolean>;
 }
 
 const userSchema = new Schema(
@@ -44,4 +46,10 @@ userSchema.virtual('fullName').get(function () {
   return `${this.firstName} ${this.lastName}`;
 });
 
-export default mongoose.models.User || mongoose.model<UserDocument>('User', userSchema);
+userSchema.methods.comparePassword = async function (password: string): Promise<boolean> {
+  const user = this as UserDocument;
+  return bcrypt.compare(password, user.password).catch(() => false);
+};
+
+export default mongoose.models.User<UserDocument> ||
+  mongoose.model<UserDocument>('User', userSchema);

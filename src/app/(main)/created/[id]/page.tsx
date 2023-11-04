@@ -1,4 +1,4 @@
-import QuestionInfo from '@/components/forms/questionInfo/QuestionInfo';
+import TestForm from '@/components/forms/test/Test';
 import TestTemplate from '@/database/models/testTemplate.model';
 import connect from '@/database/connection';
 import TestControl from '@/components/testControl/TestControl';
@@ -6,7 +6,8 @@ import TestControl from '@/components/testControl/TestControl';
 export default async function Page({ params }: { params: { id: string } }) {
   await connect();
 
-  const test = await TestTemplate.findById(params.id);
+  const data = await TestTemplate.findById(params.id);
+  const test = JSON.parse(JSON.stringify(data));
 
   return (
     <>
@@ -19,7 +20,7 @@ export default async function Page({ params }: { params: { id: string } }) {
         <TestControl />
       </div>
       <div className='page__line' />
-      <QuestionInfo id={test._id.toString()} name={test.title} question={[]} />
+      <TestForm {...test} />
     </>
   );
 }

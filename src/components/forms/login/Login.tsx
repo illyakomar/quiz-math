@@ -1,16 +1,16 @@
 'use client';
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Controller, useForm } from 'react-hook-form';
-import { useRouter, useSearchParams } from 'next/navigation';
 import { signIn } from 'next-auth/react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Toaster } from 'react-hot-toast';
+import { Controller, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
-import { LoginSchemaType } from '@/app/(auth)/login/types';
-import { loginSchema } from '@/app/(auth)/login/schemas';
+import { loginSchema } from '@/components/forms/login/schemas';
 import { notifyError } from '@/lib/helpers';
+import { LoginSchemaType } from './types';
 
 export default function LoginForm() {
   const {
@@ -18,7 +18,7 @@ export default function LoginForm() {
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<LoginSchemaType>({
-    mode: 'onTouched',
+    mode: 'onSubmit',
     reValidateMode: 'onChange',
     resolver: zodResolver(loginSchema),
   });
@@ -42,47 +42,45 @@ export default function LoginForm() {
       <h2 className='right-container__form-title'>Вхід</h2>
       <hr className='right-container__form-divider' />
       <div className='right-container__form-inputs'>
-        <div className='right-container__form-input'>
+        <div className='form-input'>
           <Controller
             control={control}
             name='email'
-            //defaultValue=''
-            render={({ field: { onBlur, onChange, value } }) => (
+            defaultValue=''
+            render={({ field: { onChange, onBlur, value } }) => (
               <Input
                 type='email'
                 name='email'
                 label='Пошта'
                 placeholder='email@gmail.com'
-                onBlur={onBlur}
                 onChange={onChange}
+                onBlur={onBlur}
                 value={value}
                 disabled={isSubmitting}
               />
             )}
           />
-          {errors.email && <p className='right-container__form-error'>{errors.email.message}</p>}
+          {errors.email && <p className='form-error'>{errors.email.message}</p>}
         </div>
-        <div className='right-container__form-input'>
+        <div className='form-input'>
           <Controller
             control={control}
             name='password'
-            //defaultValue=''
-            render={({ field: { onBlur, onChange, value } }) => (
+            defaultValue=''
+            render={({ field: { onChange, onBlur, value } }) => (
               <Input
                 type='password'
                 name='password'
                 label='Пароль'
                 placeholder='Введіть пароль'
-                onBlur={onBlur}
                 onChange={onChange}
+                onBlur={onBlur}
                 value={value}
                 disabled={isSubmitting}
               />
             )}
           />
-          {errors.password && (
-            <p className='right-container__form-error'>{errors.password.message}</p>
-          )}
+          {errors.password && <p className='form-error'>{errors.password.message}</p>}
         </div>
       </div>
       <div className='right-container__form-buttons'>

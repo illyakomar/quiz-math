@@ -1,22 +1,21 @@
-.input-wrapper{
+.input-wrapper {
   display: grid;
   gap: 13px;
 
-  &__title{
-    color: #696F79;
+  &__title {
+    color: #696f79;
     font-size: 16px;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
   }
 
-  &__input{
+  &__input {
     border: 0px;
     padding: 20px 30px;
     border-radius: 30px;
-    box-shadow: 0px 15px 40px 5px #E1E1E1;
+    box-shadow: 0px 15px 40px 5px #e1e1e1;
   }
-
 }
 
 .radioBtn {
@@ -29,15 +28,15 @@
   }
 
   &__checkmark {
-    fill: #696F79;
+    fill: #696f79;
     cursor: pointer;
 
-    &:hover{
-      fill: #5ED29E;
+    &:hover {
+      fill: #5ed29e;
     }
   }
 
   input:checked + svg {
-    fill: #5ED29E;
+    fill: #5ed29e;
   }
 }

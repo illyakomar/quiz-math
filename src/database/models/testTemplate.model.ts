@@ -1,17 +1,16 @@
-import mongoose, { Types, Document } from 'mongoose';
+import mongoose, { Document } from 'mongoose';
 
-import { questionSchema } from './question.model';
+import { QuestionInput, questionSchema } from './question.model';
 
 const { Schema } = mongoose;
 
 export interface TestTemplateInput {
   title: string;
   color: string;
-  questions: Types.ObjectId[];
+  questions: QuestionInput[];
 }
 
 export interface TestTemplateDocument extends TestTemplateInput, Document {
-  fullName: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -33,5 +32,5 @@ const testTemplateSchema = new Schema(
   },
 );
 
-export default mongoose.models.TestTemplate ||
+export default mongoose.models.TestTemplate<TestTemplateDocument> ||
   mongoose.model<TestTemplateDocument>('TestTemplate', testTemplateSchema);
