@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 import connect from '@/database/connection';
-import Test from '@/database/models/test.model';
+import TestTemplate from '@/database/models/testTemplate.model';
 
 export const POST = async (request: NextRequest) => {
   try {
@@ -9,8 +9,8 @@ export const POST = async (request: NextRequest) => {
 
     await connect();
 
-    const test = await Test.create(payload);
-    return new NextResponse(JSON.stringify(test.toObject()), { status: 201 });
+    const testTemplate = await TestTemplate.create(payload);
+    return new NextResponse(JSON.stringify(testTemplate.toObject()), { status: 201 });
   } catch (error: any) {
     return new NextResponse(error.message, { status: 500 });
   }

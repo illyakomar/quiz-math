@@ -7,7 +7,7 @@ export default async function Page({ params }: { params: { id: string } }) {
   await connect();
 
   const data = await TestTemplate.findById(params.id);
-  const test = JSON.parse(JSON.stringify(data));
+  const testTemplate = JSON.parse(JSON.stringify(data));
 
   return (
     <>
@@ -17,10 +17,10 @@ export default async function Page({ params }: { params: { id: string } }) {
             <span>Інформація про тест</span>
           </div>
         </div>
-        <TestControl />
+        <TestControl _id={testTemplate._id} testTemplate={testTemplate} />
       </div>
       <div className='page__line' />
-      <TestForm {...test} />
+      <TestForm mode='edit' {...testTemplate} />
     </>
   );
 }

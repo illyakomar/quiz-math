@@ -8,18 +8,13 @@ const { ObjectId } = Schema.Types;
 export interface TestInput {
   title: string;
   color: string;
-  status: TestStatus;
+  status: 'ACTIVE' | 'FINISHED';
   questions: QuestionInput[];
 }
 
 export interface TestDocument extends TestInput, Document {
   createdAt: Date;
   updatedAt: Date;
-}
-
-export enum TestStatus {
-  ACTIVE = 'ACTIVE',
-  FINISHED = 'FINISHED',
 }
 
 const testSchema = new Schema({
@@ -33,7 +28,6 @@ const testSchema = new Schema({
   },
   status: {
     type: String,
-    enum: TestStatus,
     required: true,
   },
   questions: [questionSchema],

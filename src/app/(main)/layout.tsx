@@ -1,3 +1,5 @@
+import { Toaster } from 'react-hot-toast';
+
 import Sidebar from '@/components/sidebar/Sidebar';
 
 export const metadata = {
@@ -10,6 +12,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     <div className='layout'>
       <Sidebar />
       <div className='layout__main-content'>
+        <Toaster />
         <div className='page'>{children}</div>
       </div>
     </div>

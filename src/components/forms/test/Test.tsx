@@ -1,34 +1,48 @@
 'use client';
 
 import { useState } from 'react';
-import { Toaster } from 'react-hot-toast';
-import { Controller, useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
+import { Controller, useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AiOutlinePlus } from 'react-icons/ai';
+import { String2HexCodeColor } from 'string-to-hex-code-color';
 
-import Button from '@/components/ui/Button';
-import Input from '@/components/ui/Input';
-import { TestTemplateInput } from '@/database/models/testTemplate.model';
+import { TestTemplateDocument, TestTemplateInput } from '@/database/models/testTemplate.model';
 import { QuestionInput } from '@/database/models/question.model';
 import { TestTemplateApiService } from '@/lib/api/services/testTemplate.service';
+import { notifyError, notifyLoading, notifySuccess, removeNotification } from '@/lib/helpers';
+import { FormMode } from '@/lib/types';
+import Button from '@/components/ui/Button';
+import Input from '@/components/ui/Input';
 import QuestionModal from '@/components/modals/question/Question';
 import Question from '@/components/question/Question';
 import { testSchema } from './schemas';
 import { TestSchemaType } from './types';
 
-interface Props extends Partial<TestTemplateInput> {}
+const modeNoftificationTexts = {
+  create: {
+    success: 'Тест успішно створено!',
+    loading: 'Створення тесту...',
+  },
+  edit: {
+    success: 'Тест успішно оновлено!',
+    loading: 'Оновлення тесту...',
+  },
+};
+
+interface Props extends Partial<TestTemplateInput>, Pick<TestTemplateDocument, '_id'> {
+  mode: FormMode;
+}
 
 const TestForm = (props: Props) => {
-  const { title } = props;
-  let { questions } = props;
+  const { _id, title, questions, mode } = props;
 
   const [showModal, setShowModal] = useState(false);
-  const [modalMode, setModalMode] = useState<'create' | 'edit'>('create');
-  const [selectedQuestion, setSelectedQuestion] = useState<QuestionInput>();
+  const [modalMode, setModalMode] = useState<FormMode>('create');
+  const [selectedQuestionIndex, setSelectedQuestionIndex] = useState(-1);
 
   const {
     control,
-    getValues,
     setValue,
     handleSubmit,
     formState: { errors, isSubmitting },
@@ -38,10 +52,13 @@ const TestForm = (props: Props) => {
     resolver: zodResolver(testSchema),
     defaultValues: { title, questions },
   });
+  const formQuestions = useWatch({ control, name: 'questions' });
+
+  const router = useRouter();
 
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
-  const handleCloseAnimationEnd = () => setSelectedQuestion(undefined);
+  const handleCloseAnimationEnd = () => setSelectedQuestionIndex(-1);
 
   const handleQuestionAddStart = () => {
     setModalMode('create');
@@ -49,43 +66,66 @@ const TestForm = (props: Props) => {
   };
 
   const handleQuestionEditStart = (index: number) => {
-    const questions = getValues('questions');
-    if (!questions || !questions.length) return;
-    setSelectedQuestion(questions[index]);
+    if (!formQuestions || !formQuestions.length) return;
+    setSelectedQuestionIndex(index);
     setModalMode('edit');
     handleShow();
   };
 
-  const handleQuestionAdd = (question: QuestionInput) => {
-    const questions = getValues('questions') || [];
-    questions.push(question);
+  const handleQuestionDelete = (index: number) => {
+    if (!formQuestions || !formQuestions.length) return;
+    formQuestions.splice(index, 1);
+    setValue('questions', formQuestions);
+  };
+
+  const handleQuestionModalSumbit = (question: QuestionInput) => {
+    const questions = formQuestions || [];
+    if (modalMode === 'create') questions.push(question);
+    else if (modalMode === 'edit' && selectedQuestionIndex !== -1)
+      questions[selectedQuestionIndex] = question;
     setValue('questions', questions);
   };
 
   const handleCreate = async (data: TestSchemaType) => {
-    await TestTemplateApiService.createOne({ ...data, color: '#ffffff' });
+    const notificationTexts = modeNoftificationTexts[mode];
+    const notificationId = notifyLoading(notificationTexts.loading);
+    const colorCourse = new String2HexCodeColor(0.5);
+    const color = colorCourse.stringToColor(data.title);
+    let result;
+    if (mode === 'create') {
+      result = await TestTemplateApiService.createOne({ ...data, color });
+    } else {
+      result = await TestTemplateApiService.updateOne(_id, { ...data, color });
+    }
+    removeNotification(notificationId);
+    if (result.error) {
+      notifyError(result.error);
+      return;
+    }
+    notifySuccess(notificationTexts.success);
+    router.refresh();
+    router.push('/created');
   };
 
   const renderQuestionsList = () => {
-    const questions = getValues('questions') || [];
-    return questions?.map(({ text }, index) => (
+    return formQuestions?.map(({ text }, index) => (
       <Question
         key={index}
         index={index + 1}
         text={text}
         onStartEdit={() => handleQuestionEditStart(index)}
+        onDelete={() => handleQuestionDelete(index)}
       />
     ));
   };
 
   return (
     <>
-      <Toaster />
       <QuestionModal
-        {...(selectedQuestion && selectedQuestion)}
+        {...(formQuestions && formQuestions[selectedQuestionIndex])}
         mode={modalMode}
         show={showModal}
-        onSubmit={handleQuestionAdd}
+        onSubmit={handleQuestionModalSumbit}
         onClose={handleClose}
         onCloseAnimationEnd={handleCloseAnimationEnd}
       />
@@ -115,6 +155,9 @@ const TestForm = (props: Props) => {
           <div className='questions'>
             <p className='questions__title'>Питання:</p>
             <div className='questions__list'>{renderQuestionsList()}</div>
+            <div className='questions__error-container'>
+              {errors.questions && <p className='form-error'>{errors.questions.message}</p>}
+            </div>
             <div className='questions__button-container'>
               <div className='questions__button' onClick={handleQuestionAddStart}>
                 <AiOutlinePlus size={22} />
@@ -124,9 +167,11 @@ const TestForm = (props: Props) => {
           </div>
         </div>
         <div className='page__button-footer'>
-          <Button color='secondary'>Назад</Button>
+          <Button color='secondary' onClick={() => router.push('/created')}>
+            Назад
+          </Button>
           <Button type='submit' color='primary'>
-            Створити
+            {mode === 'create' ? 'Створити' : 'Оновити'}
           </Button>
         </div>
       </form>

@@ -40,7 +40,7 @@ export default function RegisterForm() {
       return;
     }
     notifySuccess('Успішна реєстрація!');
-    response.status === 201 && router.push('/created');
+    router.push('/created');
   };
 
   return (

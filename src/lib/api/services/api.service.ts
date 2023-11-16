@@ -1,4 +1,3 @@
-import { Document } from 'mongoose';
 import { ApiResponse } from '../types';
 
 enum Methods {
@@ -23,7 +22,7 @@ export abstract class ApiService {
         body: JSON.stringify(requestBody),
       });
       if (!response.ok) throw Error(await response.text());
-      return { status: response.status, data: (await response.json()) as T };
+      return { data: (await response.json()) as T };
     } catch (error: any) {
       console.log(error);
       return { error: error.message };

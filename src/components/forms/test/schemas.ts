@@ -14,5 +14,10 @@ export const testSchema = zod.object({
         })
         .array(),
     })
-    .array(),
+    .array()
+    .default([])
+    .refine((questions) => {
+      if (!questions || !questions.length) return false;
+      return true;
+    }, 'Додайте хоча б одне питання'),
 });

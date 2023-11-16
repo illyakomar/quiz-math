@@ -5,7 +5,7 @@ import connect from '@/database/connection';
 import { UserDocument } from '@/database/models/user.model';
 import EnvService from '@/env/env.service';
 import { EnvEnum } from '@/env/env.enum';
-import UserService from '@/database/services/user.service';
+import User from '@/database/models/user.model';
 
 export const authOptions: AuthOptions = {
   secret: EnvService.get(EnvEnum.NEXTAUTH_SECRET),
@@ -21,12 +21,12 @@ export const authOptions: AuthOptions = {
         password: { type: 'password' },
       },
       async authorize(credentials) {
-        if (!credentials) throw new Error('Сталася помилка!');
-
-        await connect();
-
         try {
-          const user = await UserService.selectOne({
+          if (!credentials) throw new Error('Сталася помилка!');
+
+          await connect();
+
+          const user = await User.findOne({
             email: credentials?.email,
           });
           console.log(user);

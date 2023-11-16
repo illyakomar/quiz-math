@@ -8,10 +8,11 @@ import { QuestionInput } from '@/database/models/question.model';
 interface Props extends Pick<QuestionInput, 'text'> {
   index: number;
   onStartEdit: () => void;
+  onDelete: () => void;
 }
 
 const Question = (props: Props) => {
-  const { index, text, onStartEdit } = props;
+  const { index, text, onStartEdit, onDelete } = props;
 
   return (
     <div className='question'>
@@ -19,7 +20,7 @@ const Question = (props: Props) => {
       <p className='question__text'>{text}</p>
       <div className='question__icon-container'>
         <AiFillEdit className='question__icon' onClick={onStartEdit} />
-        <AiFillDelete className='question__icon' />
+        <AiFillDelete className='question__icon' onClick={onDelete} />
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { Modal } from 'react-responsive-modal';
 import { AiOutlineClose, AiOutlinePlus } from 'react-icons/ai';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
@@ -11,8 +12,8 @@ import { QuestionInput } from '@/database/models/question.model';
 import { AnswerInput } from '@/database/models/answer.model';
 import { questionSchema } from './schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { FormMode } from '@/lib/types';
 import { QuestionSchemaType } from './types';
-import { useEffect } from 'react';
 
 const fieldArrayName = 'answers';
 
@@ -20,7 +21,7 @@ const fieldArrayInputDefaultValues: AnswerInput = { text: '', isCorrect: false }
 const fieldArrayDefaultValues: AnswerInput[] = new Array(2).fill(fieldArrayInputDefaultValues);
 
 interface Props extends Partial<QuestionInput> {
-  mode: 'create' | 'edit';
+  mode: FormMode;
   show: boolean;
   onSubmit: (question: QuestionInput) => void;
   onClose: () => void;
@@ -36,7 +37,7 @@ const QuestionModal = (props: Props) => {
     setValue,
     handleSubmit,
     reset,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<QuestionSchemaType>({
     mode: 'onSubmit',
     reValidateMode: 'onChange',
@@ -116,7 +117,6 @@ const QuestionModal = (props: Props) => {
                   onChange={onChange}
                   onBlur={onBlur}
                   value={value}
-                  disabled={isSubmitting}
                 />
               )}
             />
@@ -124,7 +124,7 @@ const QuestionModal = (props: Props) => {
           </div>
           <div className='question-modal__answer-container'>{answersInputs}</div>
           <div className='question-modal__error-container'>
-            {errors.answers && <p className='form-error'>{errors.answers.message}</p>}
+            {errors.answers && <p className='form-error'>{errors.answers.root?.message}</p>}
           </div>
           <div className='questions__button-container'>
             <div

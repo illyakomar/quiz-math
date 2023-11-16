@@ -9,7 +9,7 @@ export default function AddQuiz() {
         </div>
       </div>
       <div className='page__line' />
-      <TestForm />
+      <TestForm mode='create' />
     </>
   );
 }
