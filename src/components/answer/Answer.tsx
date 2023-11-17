@@ -1,12 +1,13 @@
 'use client';
 
-import React from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
 import { AiFillDelete } from 'react-icons/ai';
 
 import Input from '@/components/ui/Input';
 import Radio from '@/components/ui/Radio';
 import { AnswerInput } from '@/database/models/answer.model';
+
+import '@/styles/components/_answer.scss';
 
 interface Props {
   index: number;

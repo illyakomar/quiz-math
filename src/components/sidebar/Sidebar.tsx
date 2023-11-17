@@ -1,12 +1,13 @@
 'use client';
 
-import React from 'react';
+import { signOut } from 'next-auth/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { signOut } from 'next-auth/react';
 import { BiSolidLogOut } from 'react-icons/bi';
 
 import { sidebarData } from './constants';
+
+import '@/styles/components/_sideBar.scss';
 
 const Sidebar = () => {
   const currentRoute = usePathname();

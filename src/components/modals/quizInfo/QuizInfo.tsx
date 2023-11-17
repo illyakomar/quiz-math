@@ -1,11 +1,12 @@
-"use client";
+'use client';
 
-import React from "react";
-import { Modal } from "react-responsive-modal";
-import { AiOutlineClose, AiFillCopy } from "react-icons/ai";
-import { QRCodeSVG } from "qrcode.react";
+import { QRCodeSVG } from 'qrcode.react';
+import { AiFillCopy, AiOutlineClose } from 'react-icons/ai';
+import { Modal } from 'react-responsive-modal';
 
-import Button from "@/components/ui/Button";
+import Button from '@/components/ui/Button';
+
+import '@/styles/components/_modal.scss';
 
 interface IProps {
   onStart: boolean;
@@ -20,7 +21,7 @@ const QuizInfo = (props: IProps) => {
       open={onStart}
       onClose={handleClose}
       center
-      classNames={{ modal: "quiz-modal" }}
+      classNames={{ modal: 'quiz-modal' }}
       focusTrapped={false}
       closeIcon={<AiOutlineClose size={22} />}
     >
@@ -40,7 +41,7 @@ const QuizInfo = (props: IProps) => {
             color='primary'
             form='rounded'
             onClick={() => {
-              navigator.clipboard.writeText("http://localhost:3000/65045fac163735c3fa3df29c");
+              navigator.clipboard.writeText('http://localhost:3000/65045fac163735c3fa3df29c');
             }}
           >
             <AiFillCopy size={25} />

@@ -1,27 +1,15 @@
 // Abstract
-@import "abstracts/variables";
-@import "abstracts/mixins";
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
 
 // Base
-@import "base/reset";
-@import "base/typography";
-@import "base/common";
+@import 'base/reset';
+@import 'base/typography';
+@import 'base/common';
 
 // Components
-@import "components/alert";
-@import "components/answer";
-@import "components/buttons";
-@import "components/input";
-@import "components/modal";
-@import "components/card";
-@import "components/questions";
-@import "components/results";
-
-// Layout
-@import "layout/sidebar";
+@import 'components/input';
+@import 'components/buttons';
 
 // Pages
-@import "pages/base";
-@import "pages/auth";
-@import "pages/active";
-@import "pages/created";
+@import 'pages/base';

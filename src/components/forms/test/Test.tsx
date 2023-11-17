@@ -1,23 +1,25 @@
 'use client';
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { Controller, useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { Controller, useForm, useWatch } from 'react-hook-form';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { String2HexCodeColor } from 'string-to-hex-code-color';
 
-import { TestTemplateDocument, TestTemplateInput } from '@/database/models/testTemplate.model';
+import QuestionModal from '@/components/modals/question/Question';
+import Question from '@/components/question/Question';
+import Button from '@/components/ui/Button';
+import Input from '@/components/ui/Input';
 import { QuestionInput } from '@/database/models/question.model';
+import { TestTemplateDocument, TestTemplateInput } from '@/database/models/testTemplate.model';
 import { TestTemplateApiService } from '@/lib/api/services/testTemplate.service';
 import { notifyError, notifyLoading, notifySuccess, removeNotification } from '@/lib/helpers';
 import { FormMode } from '@/lib/types';
-import Button from '@/components/ui/Button';
-import Input from '@/components/ui/Input';
-import QuestionModal from '@/components/modals/question/Question';
-import Question from '@/components/question/Question';
 import { testSchema } from './schemas';
 import { TestSchemaType } from './types';
+
+import '@/styles/components/_questions.scss';
 
 const modeNoftificationTexts = {
   create: {

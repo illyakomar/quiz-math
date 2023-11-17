@@ -15,6 +15,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { FormMode } from '@/lib/types';
 import { QuestionSchemaType } from './types';
 
+import '@/styles/components/_modal.scss';
+
 const fieldArrayName = 'answers';
 
 const fieldArrayInputDefaultValues: AnswerInput = { text: '', isCorrect: false };
