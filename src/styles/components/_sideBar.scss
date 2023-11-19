@@ -1,6 +1,8 @@
+@import '../abstracts/variables';
+
 .sidebar {
   height: 100vh;
-  width: 20rem;
+  padding: 0 30px;
   position: sticky;
   left: 0;
   top: 0;
@@ -10,6 +12,17 @@
     display: grid;
     align-content: space-between;
     height: 100%;
+    max-width: none;
+    transition: max-width 0.5s ease-out;
+
+    @media screen and (max-width: $md) {
+      max-width: 0;
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      background-color: white;
+      overflow: hidden;
+    }
   }
 
   &__header {
@@ -17,6 +30,68 @@
     gap: 78px;
     margin-top: 56px;
     justify-items: center;
+  }
+
+  &__side-menu {
+    display: none;
+    position: absolute;
+
+    &:checked ~ .sidebar__container {
+      max-width: 100%;
+    }
+
+    &:checked ~ .sidebar__hamb .sidebar__hamb-line {
+      background: transparent;
+    }
+
+    &:checked ~ .sidebar__hamb .sidebar__hamb-line::before {
+      transform: rotate(-45deg);
+      top: 0;
+    }
+
+    &:checked ~ .sidebar__hamb .sidebar__hamb-line::after {
+      transform: rotate(45deg);
+      top: 0;
+    }
+  }
+
+  &__hamb {
+    cursor: pointer;
+    float: right;
+    padding: 20px;
+    position: absolute;
+
+    @media screen and (min-width: $md) {
+      display: none;
+    }
+  }
+
+  &__hamb-line {
+    background: #75887f;
+    display: block;
+    height: 2px;
+    position: relative;
+    width: 24px;
+    z-index: 4;
+
+    &::before,
+    &::after {
+      background: #75887f;
+      content: '';
+      display: block;
+      height: 100%;
+      position: absolute;
+      transition: all 0.2s ease-out;
+      width: 100%;
+    }
+
+    &::before {
+      top: 6px;
+    }
+
+    &::after {
+      top: -6px;
+    }
   }
 
   &__footer {
@@ -33,6 +108,10 @@
     cursor: pointer;
     background-color: #fbf9f9;
     border: 0;
+
+    @media screen and (max-width: $md) {
+      background-color: #fff;
+    }
 
     &:hover {
       background-color: #92a69d;
@@ -95,5 +174,9 @@
     * {
       color: #ffffff;
     }
+  }
+
+  @media screen and (max-width: $md) {
+    padding: 0;
   }
 }

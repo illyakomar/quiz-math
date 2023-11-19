@@ -13,7 +13,6 @@ export default function AuthTemplate({ children }: { children: React.ReactNode }
       <div className='auth-page__left'>
         <div className='auth-page__left-container'>
           <Image
-            className='left-container__image'
             src={pathname === '/login' ? '/manLaptop.png' : '/womanLaptop.png'}
             priority
             width={640}

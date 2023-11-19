@@ -9,6 +9,12 @@
     display: grid;
     justify-content: space-between;
     grid-auto-flow: column;
+
+    @media screen and (max-width: $sm) {
+      grid-auto-flow: row;
+      gap: 25px;
+      justify-content: center;
+    }
   }
 
   &__title {
@@ -31,7 +37,7 @@
   &__card-container {
     display: grid;
     gap: 50px;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
     margin-top: 25px;
   }
 

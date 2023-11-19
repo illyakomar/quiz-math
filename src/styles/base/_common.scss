@@ -1,6 +1,6 @@
 body {
   height: 100vh;
-  background-color: #FBF9F9;
+  background-color: #fbf9f9;
 }
 
 .layout {
@@ -13,6 +13,15 @@ body {
     flex-grow: 1;
     padding-top: 126px;
     padding-bottom: 36px;
-    padding-right: 24px;
+    padding-right: 30px;
+    padding-left: 30px;
+
+    @media screen and (max-width: $md) {
+      padding-top: 40px;
+    }
+  }
+
+  @media screen and (max-width: $md) {
+    gap: 0px;
   }
 }

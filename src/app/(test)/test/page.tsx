@@ -6,6 +6,8 @@ import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 
+import '@/styles/components/_passing.scss';
+
 export default function Test() {
   const [showQuiz, setShowQuiz] = useState(false);
 
@@ -22,7 +24,6 @@ export default function Test() {
       <div className='auth-page__left'>
         <div className='auth-page__left-container'>
           <Image
-            className='left-container__image'
             src={'/manHoldingPaper.png'}
             width={300}
             height={450}

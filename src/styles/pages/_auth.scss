@@ -1,4 +1,7 @@
+@import '../abstracts/variables';
+
 .auth-page {
+  padding: 0 30px;
   display: flex;
 
   &__left,
@@ -15,6 +18,10 @@
     &-container {
       position: fixed;
       margin: 0 0 0 11%;
+    }
+
+    @media screen and (max-width: $md) {
+      display: none;
     }
   }
 
