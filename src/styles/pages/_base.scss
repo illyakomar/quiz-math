@@ -5,6 +5,10 @@
   min-height: 100%;
   padding: 40px 48px;
 
+  @media screen and (max-width: $sm) {
+    padding: 37px 15px;
+  }
+
   &__title-container {
     display: grid;
     justify-content: space-between;
@@ -46,11 +50,27 @@
     gap: 30px;
     grid-auto-flow: column;
     justify-content: center;
+
+    @media screen and (max-width: $sm) {
+      grid-auto-flow: row;
+      grid-template-columns: 0.6fr;
+    }
   }
 
   &__title-button-container {
-    display: flex;
+    display: grid;
+    grid-auto-flow: column;
     justify-content: space-between;
+
+    @media screen and (max-width: $sm) {
+      grid-template-columns: 1fr;
+    }
+
+    @media screen and (max-width: 1060px) {
+      justify-content: center;
+      gap: 20px;
+      grid-auto-flow: row;
+    }
   }
 }
 

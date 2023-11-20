@@ -7,6 +7,7 @@ import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 
 import '@/styles/components/_passing.scss';
+import '@/styles/pages/_auth.scss';
 
 export default function Test() {
   const [showQuiz, setShowQuiz] = useState(false);
@@ -23,12 +24,7 @@ export default function Test() {
     <div className='auth-page'>
       <div className='auth-page__left'>
         <div className='auth-page__left-container'>
-          <Image
-            src={'/manHoldingPaper.png'}
-            width={300}
-            height={450}
-            alt=''
-          />
+          <Image src={'/manHoldingPaper.png'} width={300} height={450} alt='' />
         </div>
       </div>
       <div className='auth-page__right'>

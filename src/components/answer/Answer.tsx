@@ -40,21 +40,23 @@ const Answer = (props: Props) => {
             )}
           />
         </div>
-        <Controller
-          control={control}
-          name={`answers.${index}.text`}
-          defaultValue=''
-          render={({ field: { onChange, onBlur, value } }) => (
-            <Input
-              name={`answer.${index}.text`}
-              label='Текст відповіді'
-              placeholder='Відповідь'
-              onChange={onChange}
-              onBlur={onBlur}
-              value={value}
-            />
-          )}
-        />
+        <div className='answer__input'>
+          <Controller
+            control={control}
+            name={`answers.${index}.text`}
+            defaultValue=''
+            render={({ field: { onChange, onBlur, value } }) => (
+              <Input
+                name={`answer.${index}.text`}
+                label='Текст відповіді'
+                placeholder='Відповідь'
+                onChange={onChange}
+                onBlur={onBlur}
+                value={value}
+              />
+            )}
+          />
+        </div>
         <div className='answer__delete' onClick={() => remove(index)}>
           <AiFillDelete size={25} className='answer__icon-delete' />
         </div>
