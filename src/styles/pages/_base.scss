@@ -5,10 +5,20 @@
   min-height: 100%;
   padding: 40px 48px;
 
+  @media screen and (max-width: $sm) {
+    padding: 37px 15px;
+  }
+
   &__title-container {
     display: grid;
     justify-content: space-between;
     grid-auto-flow: column;
+
+    @media screen and (max-width: $sm) {
+      grid-auto-flow: row;
+      gap: 25px;
+      justify-content: center;
+    }
   }
 
   &__title {
@@ -31,7 +41,7 @@
   &__card-container {
     display: grid;
     gap: 50px;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
     margin-top: 25px;
   }
 
@@ -40,11 +50,27 @@
     gap: 30px;
     grid-auto-flow: column;
     justify-content: center;
+
+    @media screen and (max-width: $sm) {
+      grid-auto-flow: row;
+      grid-template-columns: 0.6fr;
+    }
   }
 
   &__title-button-container {
-    display: flex;
+    display: grid;
+    grid-auto-flow: column;
     justify-content: space-between;
+
+    @media screen and (max-width: $sm) {
+      grid-template-columns: 1fr;
+    }
+
+    @media screen and (max-width: 1060px) {
+      justify-content: center;
+      gap: 20px;
+      grid-auto-flow: row;
+    }
   }
 }
 

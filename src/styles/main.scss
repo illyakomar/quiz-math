@@ -8,21 +8,8 @@
 @import 'base/common';
 
 // Components
-@import 'components/alert';
-@import 'components/answer';
-@import 'components/buttons';
 @import 'components/input';
-@import 'components/modal';
-@import 'components/card';
-@import 'components/questions';
-@import 'components/results';
-@import 'components/passing';
-
-// Layout
-@import 'layout/sidebar';
+@import 'components/buttons';
 
 // Pages
 @import 'pages/base';
-@import 'pages/auth';
-@import 'pages/active';
-@import 'pages/created';

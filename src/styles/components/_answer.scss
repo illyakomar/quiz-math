@@ -1,20 +1,41 @@
-.answer{
+@import '../abstracts/variables';
+
+.answer {
   display: grid;
   grid-template-columns: auto 1fr auto;
   gap: 20px;
   align-items: end;
 
-  &__icon-delete{
-    cursor: pointer;
-    fill: #696F79;
-    margin-bottom: 12px;
+  @media screen and (max-width: $sm) {
+    grid-template-columns: auto 1fr;
+    grid-template-rows: 1fr;
+  }
 
-    &:hover{
-      fill: #92A69D;
+  &__input {
+    @media screen and (max-width: $sm) {
+      grid-row-start: span 2;
     }
   }
 
-  &__radio{
+  &__icon-delete {
+    cursor: pointer;
+    fill: #696f79;
+    margin-bottom: 12px;
+
+    @media screen and (max-width: $sm) {
+      margin: 0px;
+    }
+
+    &:hover {
+      fill: #92a69d;
+    }
+  }
+
+  &__radio {
     margin-bottom: 15px;
+
+    @media screen and (max-width: $sm) {
+      margin: 0px;
+    }
   }
 }

@@ -1,5 +1,5 @@
-import { Nunito } from 'next/font/google';
 import { getServerSession } from 'next-auth';
+import { Nunito } from 'next/font/google';
 
 import AuthProvider from '@/components/AuthProvider/AuthProvider';
 import { authOptions } from './api/auth/[...nextauth]/route';

@@ -1,8 +1,8 @@
 'use client';
 
-import React from 'react';
 import Participant from '@/components/participant/Participant';
-import TestControl from '@/components/testControl/TestControl';
+
+import '@/styles/components/_results.scss';
 
 const Results = () => {
   return (

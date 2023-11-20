@@ -1,3 +1,5 @@
+@import '../abstracts/variables';
+
 .passing {
   height: 100vh;
   display: grid;
@@ -35,6 +37,10 @@
     font-weight: 700;
     line-height: normal;
     text-align: center;
+
+    @media screen and (max-width: $sm) {
+      font-size: 17px;
+    }
   }
 }
 
@@ -46,6 +52,11 @@
   border-radius: 30px;
   background: #f4f4f4;
   padding: 35px;
+
+  @media screen and (max-width: $sm) {
+    gap: 20px;
+    padding: 20px;
+  }
 }
 
 .answer-card {
@@ -60,12 +71,21 @@
   min-height: 223px;
   width: 100%;
 
+  @media screen and (max-width: $sm) {
+    min-height: 50px;
+    padding: 20px;
+  }
+
   &__text {
     color: #fff;
     font-size: 25px;
     font-style: normal;
     font-weight: 700;
     text-align: center;
+
+    @media screen and (max-width: $sm) {
+      font-size: 16px;
+    }
   }
 
   &:hover {

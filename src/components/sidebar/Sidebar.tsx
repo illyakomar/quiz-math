@@ -1,18 +1,25 @@
 'use client';
 
-import React from 'react';
+import { signOut } from 'next-auth/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { signOut } from 'next-auth/react';
+import { useState } from 'react';
 import { BiSolidLogOut } from 'react-icons/bi';
 
 import { sidebarData } from './constants';
 
+import '@/styles/components/_sideBar.scss';
+
 const Sidebar = () => {
   const currentRoute = usePathname();
+  const [isMenuActive, setMenuActive] = useState<boolean>(false);
+
+  const handleCheckboxChange = () => {
+    setMenuActive(!isMenuActive);
+  };
 
   const listSidebar = sidebarData.map((link) => (
-    <li key={link.id}>
+    <li key={link.id} onClick={handleCheckboxChange}>
       <Link
         className={
           currentRoute.startsWith(link.url)
@@ -29,6 +36,10 @@ const Sidebar = () => {
 
   return (
     <aside className='sidebar'>
+      <input className='sidebar__side-menu' type='checkbox' checked={isMenuActive} />
+      <label className='sidebar__hamb' onClick={handleCheckboxChange}>
+        <span className='sidebar__hamb-line'></span>
+      </label>
       <div className='sidebar__container'>
         <div className='sidebar__header'>
           <a className='sidebar__logo'>QuizMath</a>

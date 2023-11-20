@@ -1,8 +1,9 @@
-"use client";
+'use client';
 
-import React from "react";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+
+import '@/styles/components/_card.scss';
 
 interface Props {
   id: string;

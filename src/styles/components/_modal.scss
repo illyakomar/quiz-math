@@ -1,16 +1,26 @@
+@import '../abstracts/variables';
+
 .quiz-modal {
   border-radius: 30px;
   background: #f4f4f4 !important;
-  width: 100%;
+
+  @media screen and (min-width: $sm) {
+    width: 100%;
+  }
 }
 
 .question-modal {
   padding: 40px 90px;
 
+  @media screen and (max-width: $sm) {
+    padding: 0px;
+  }
+
   &__title {
     display: grid;
     justify-items: center;
 
+    margin-top: 15px;
     margin-bottom: 35px;
 
     font-size: 20px;
@@ -61,6 +71,10 @@
       position: absolute;
       left: 88px;
       top: 0;
+
+      @media screen and (max-width: $md) {
+        width: 0px;
+      }
     }
   }
 
@@ -68,6 +82,10 @@
     display: grid;
     gap: 17px;
     margin-top: 17px;
+
+    @media screen and (max-width: $sm) {
+      gap: 20px;
+    }
   }
 
   &__button-footer {
@@ -76,6 +94,11 @@
     grid-auto-flow: column;
     justify-content: center;
     margin-top: 30px;
+
+    @media screen and (max-width: $sm) {
+      grid-auto-flow: row;
+      grid-template-columns: 0.6fr;
+    }
   }
 
   &__error-container {
