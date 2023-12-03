@@ -1,17 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-import connect from '@/database/connection';
-import Test from '@/database/models/test.model';
+import connect from '@/database/config';
+import Test from '@/database/schemas/test.schema';
+import { createRouteHandler } from '@/utils/createRouteHandler';
+import { connectDb } from '@/utils/middleware/middleware/connectDb.middleware';
 
-export const POST = async (request: NextRequest) => {
-  try {
-    const payload = await request.json();
+export const POST = createRouteHandler([connectDb], async (request: NextRequest) => {
+  const payload = await request.json();
 
-    await connect();
-
-    const test = await Test.create(payload);
-    return new NextResponse(JSON.stringify(test.toObject()), { status: 201 });
-  } catch (error: any) {
-    return new NextResponse(error.message, { status: 500 });
-  }
-};
+  const test = await Test.create(payload);
+  return test;
+});

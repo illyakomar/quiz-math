@@ -1,11 +1,12 @@
-import Test from '@/database/models/test.model';
-import connect from '@/database/connection';
+import Test from '@/database/schemas/test.schema';
+import connect from '@/database/config';
 import Results from '@/components/forms/results/Results';
 
 export default async function Page({ params }: { params: { id: string } }) {
   await connect();
 
-  const test = await Test.findById(params.id);
+  const data = await Test.findById(params.id);
+  const test = JSON.parse(JSON.stringify(data));
 
   return (
     <>
@@ -17,7 +18,7 @@ export default async function Page({ params }: { params: { id: string } }) {
         </div>
       </div>
       <div className='page__line' />
-      <Results />
+      <Results {...test} />
     </>
   );
 }

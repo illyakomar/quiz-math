@@ -1,11 +1,11 @@
 import NextAuth, { AuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
-import connect from '@/database/connection';
-import { UserDocument } from '@/database/models/user.model';
+import connect from '@/database/config';
+import { UserDocument } from '@/database/schemas/user.schema';
 import EnvService from '@/env/env.service';
 import { EnvEnum } from '@/env/env.enum';
-import User from '@/database/models/user.model';
+import User from '@/database/schemas/user.schema';
 
 export const authOptions: AuthOptions = {
   secret: EnvService.get(EnvEnum.NEXTAUTH_SECRET),
@@ -29,7 +29,6 @@ export const authOptions: AuthOptions = {
           const user = await User.findOne({
             email: credentials?.email,
           });
-          console.log(user);
 
           if (!user) {
             throw new Error('Неправильний email або пароль!');

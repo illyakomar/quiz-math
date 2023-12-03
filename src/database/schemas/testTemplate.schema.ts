@@ -1,6 +1,6 @@
 import mongoose, { Document } from 'mongoose';
 
-import { QuestionInput, questionSchema } from './question.model';
+import { QuestionInput, questionSchema } from './question.schema';
 
 const { Schema } = mongoose;
 
@@ -27,9 +27,7 @@ const testTemplateSchema = new Schema(
     },
     questions: [questionSchema],
   },
-  {
-    timestamps: true,
-  },
+  { timestamps: true },
 );
 
 export default mongoose.models.TestTemplate<TestTemplateDocument> ||

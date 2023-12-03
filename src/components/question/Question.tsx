@@ -3,7 +3,7 @@
 import React from 'react';
 import { AiFillEdit, AiFillDelete } from 'react-icons/ai';
 
-import { QuestionInput } from '@/database/models/question.model';
+import { QuestionInput } from '@/database/schemas/question.schema';
 
 interface Props extends Pick<QuestionInput, 'text'> {
   index: number;

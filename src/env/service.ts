@@ -1,4 +1,4 @@
-import { EnvEnum } from './enum';
+import { EnvEnum } from './env.enum';
 
 export default abstract class EnvService {
   public static get = <T = NodeJS.ProcessEnv>(variableName: EnvEnum): T => {

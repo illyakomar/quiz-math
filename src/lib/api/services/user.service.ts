@@ -1,4 +1,4 @@
-import { UserInput } from '@/database/models/user.model';
+import { UserInput } from '@/database/schemas/user.schema';
 import { ApiService } from './api.service';
 import { ApiResponse } from '../types';
 

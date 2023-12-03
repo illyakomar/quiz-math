@@ -1,6 +1,6 @@
 import Card from '@/components/card/Card';
-import connect from '@/database/connection';
-import Test from '@/database/models/test.model';
+import connect from '@/database/config';
+import Test from '@/database/schemas/test.schema';
 
 export default async function Active() {
   await connect();

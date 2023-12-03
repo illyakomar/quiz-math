@@ -1,7 +1,6 @@
 import mongoose, { Document } from 'mongoose';
 
 const { Schema } = mongoose;
-const { ObjectId } = Schema.Types;
 
 export interface ParticipantInput {
   firstName: string;
@@ -13,7 +12,7 @@ export interface ParticipantDocument extends ParticipantInput, Document {
   updatedAt: Date;
 }
 
-const participantSchema = new Schema(
+export const participantSchema = new Schema(
   {
     firstName: {
       type: String,
@@ -23,7 +22,10 @@ const participantSchema = new Schema(
       type: String,
       required: true,
     },
-    result: { type: ObjectId, ref: 'Result' },
+    correctAnswersCount: {
+      type: Number,
+      required: true,
+    },
   },
   { timestamps: true },
 );

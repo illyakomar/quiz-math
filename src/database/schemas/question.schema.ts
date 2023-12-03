@@ -1,8 +1,6 @@
-import mongoose, { Document } from 'mongoose';
+import { Schema, Document } from 'mongoose';
 
-import { AnswerInput, answerSchema } from './answer.model';
-
-const { Schema } = mongoose;
+import { AnswerInput, answerSchema } from './answer.schema';
 
 export interface QuestionInput {
   text: string;

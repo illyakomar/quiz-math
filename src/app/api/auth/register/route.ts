@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcrypt';
 
-import connect from '@/database/connection';
-import User from '@/database/models/user.model';
+import connect from '@/database/config';
+import User from '@/database/schemas/user.schema';
+import UserService from '@/database/services/user.service';
 
 export const POST = async (request: NextRequest) => {
   try {
@@ -19,13 +20,14 @@ export const POST = async (request: NextRequest) => {
 
     const hashedPassword = await bcrypt.hash(password, 5);
 
-    const newUser = await User.create({
+    const newUser = await UserService.createOne({
       firstName,
       lastName,
       email,
       password: hashedPassword,
     });
-    return new NextResponse(JSON.stringify(newUser.toObject()), { status: 201 });
+    console.log(newUser);
+    return NextResponse.json(newUser, { status: 201 });
   } catch (error: any) {
     return new NextResponse(error.message, { status: 500 });
   }

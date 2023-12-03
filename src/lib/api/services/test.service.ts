@@ -1,4 +1,4 @@
-import { TestInput } from '@/database/models/test.model';
+import { TestInput } from '@/database/schemas/test.schema';
 import { ApiService } from './api.service';
 import { ApiResponse } from '../types';
 

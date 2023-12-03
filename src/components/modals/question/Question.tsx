@@ -8,8 +8,8 @@ import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import Input from '@/components/ui/Input';
 import Answer from '@/components/answer/Answer';
 import Button from '@/components/ui/Button';
-import { QuestionInput } from '@/database/models/question.model';
-import { AnswerInput } from '@/database/models/answer.model';
+import { QuestionInput } from '@/database/schemas/question.schema';
+import { AnswerInput } from '@/database/schemas/answer.schema';
 import { questionSchema } from './schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormMode } from '@/lib/types';
@@ -41,7 +41,7 @@ const QuestionModal = (props: Props) => {
     reset,
     formState: { errors },
   } = useForm<QuestionSchemaType>({
-    mode: 'onSubmit',
+    mode: 'onChange',
     reValidateMode: 'onChange',
     resolver: zodResolver(questionSchema),
     defaultValues: {
@@ -74,7 +74,7 @@ const QuestionModal = (props: Props) => {
   const removeAnswerField = (index: number) => {
     if (fields.length > 2) remove(index);
   };
-
+  console.log(errors);
   useEffect(() => {
     if (text && answers?.length) reset({ text, answers });
   }, [reset, text, answers]);
@@ -126,7 +126,7 @@ const QuestionModal = (props: Props) => {
           </div>
           <div className='question-modal__answer-container'>{answersInputs}</div>
           <div className='question-modal__error-container'>
-            {errors.answers && <p className='form-error'>{errors.answers.root?.message}</p>}
+            {errors.answers && <p className='form-error'>{errors.answers.correct?.message}</p>}
           </div>
           <div className='questions__button-container'>
             <div
