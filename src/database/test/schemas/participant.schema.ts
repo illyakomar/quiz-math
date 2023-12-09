@@ -1,5 +1,7 @@
 import mongoose, { Document } from 'mongoose';
 
+import { SerializableDocumentPOJO } from '@/database/types';
+
 const { Schema } = mongoose;
 
 export interface ParticipantInput {
@@ -7,10 +9,9 @@ export interface ParticipantInput {
   lastName: string;
 }
 
-export interface ParticipantDocument extends ParticipantInput, Document {
-  createdAt: Date;
-  updatedAt: Date;
-}
+export interface ParticipantOutput extends ParticipantInput, SerializableDocumentPOJO {}
+
+export interface ParticipantDocument extends Omit<ParticipantOutput, '_id'>, Document {}
 
 export const participantSchema = new Schema(
   {

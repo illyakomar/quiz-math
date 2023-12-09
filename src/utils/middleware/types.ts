@@ -1,3 +1,8 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
-export type Middleware = (req?: NextRequest, res?: NextResponse) => Promise<unknown> | unknown;
+import { NextRequestBodyType } from '../http/exceptions/classes/next-request-body-type';
+
+export type Middleware = (
+  request: NextRequestBodyType,
+  response?: NextResponse,
+) => Promise<unknown> | unknown;

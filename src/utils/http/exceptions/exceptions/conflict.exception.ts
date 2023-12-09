@@ -1,8 +1,8 @@
 import { HttpException } from './http.exception';
-import { HttpStatusCode } from '../../statusCode.enum';
+import { HttpStatusCodeEnum } from '../../status-code.enum';
 
 export class ConflictException extends HttpException {
   constructor(message?: string) {
-    super('Conflict', HttpStatusCode.CONFLICT, message);
+    super('Conflict', HttpStatusCodeEnum.CONFLICT, message);
   }
 }

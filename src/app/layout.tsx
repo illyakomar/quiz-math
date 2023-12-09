@@ -25,7 +25,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     <html lang='uk-UA' className={nunito.className}>
       <body>
         <AuthProvider session={session}>
-          <main>{children}</main>
+          <main className='main'>{children}</main>
         </AuthProvider>
       </body>
     </html>

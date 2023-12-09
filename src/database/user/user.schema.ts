@@ -1,6 +1,8 @@
 import mongoose, { Types, Document, Model } from 'mongoose';
 import bcrypt from 'bcrypt';
 
+import { SerializableDocumentPOJO } from '../types';
+
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
 
@@ -12,10 +14,10 @@ export interface UserInput {
   tests?: Types.ObjectId[];
 }
 
-export interface UserDocument extends UserInput, Document {
+export interface UserOutput extends UserInput, SerializableDocumentPOJO {}
+
+export interface UserDocument extends Omit<UserOutput, '_id'>, Document {
   fullName: string;
-  createdAt: Date;
-  updatedAt: Date;
   comparePassword: (password: string) => Promise<boolean>;
 }
 
@@ -39,12 +41,7 @@ const userSchema = new Schema(
     },
     tests: [{ type: ObjectId, ref: 'Test' }],
   },
-  {
-    timestamps: true,
-    toObject: {
-      transform: (doc, ret) => {},
-    },
-  },
+  { timestamps: true },
 );
 
 userSchema.virtual('fullName').get(function () {

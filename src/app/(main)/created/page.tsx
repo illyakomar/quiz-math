@@ -2,11 +2,11 @@ import Link from 'next/link';
 import { AiFillPlusCircle } from 'react-icons/ai';
 
 import Card from '@/components/card/Card';
-import connect from '@/database/config';
-import TestTemplate from '@/database/schemas/testTemplate.schema';
+import TestTemplate from '@/database/test-template/schemas/test-template.schema';
+import { connectDb } from '@/utils/middleware/middleware/connect-db.middleware';
 
-export default async function Created() {
-  await connect();
+export default async function CreatedTestTemlates() {
+  await connectDb();
 
   const tests = await TestTemplate.find();
 

@@ -1,7 +1,7 @@
 import { DefaultSession } from 'next-auth';
 import { JWT } from 'next-auth/jwt';
 
-import { UserInput } from '@/database/schemas/user.schema';
+import { UserInput } from '@/database/user/user.schema';
 
 declare module 'next-auth' {
   interface User extends UserInput {}

@@ -1,3 +1,4 @@
+import { SerializableDocumentPOJO } from '@/database/types';
 import mongoose, { Document } from 'mongoose';
 
 const { Schema } = mongoose;
@@ -7,10 +8,9 @@ export interface AnswerInput {
   isCorrect: boolean;
 }
 
-export interface AnswerDocument extends AnswerInput, Document {
-  createdAt: Date;
-  updatedAt: Date;
-}
+export interface AnswerOutput extends AnswerInput, SerializableDocumentPOJO {}
+
+export interface AnswerDocument extends Omit<AnswerOutput, '_id'>, Document {}
 
 export const answerSchema = new Schema(
   {

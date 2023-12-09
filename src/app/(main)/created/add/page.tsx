@@ -1,6 +1,6 @@
 import TestForm from '@/components/forms/test/Test';
 
-export default function AddQuiz() {
+export default function CreateTest() {
   return (
     <>
       <div className='page__title-container'>

@@ -11,9 +11,12 @@ import QuestionModal from '@/components/modals/question/Question';
 import Question from '@/components/question/Question';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
-import { QuestionInput } from '@/database/schemas/question.schema';
-import { TestTemplateDocument, TestTemplateInput } from '@/database/schemas/testTemplate.schema';
-import { TestTemplateApiService } from '@/lib/api/services/testTemplate.service';
+import { QuestionInput } from '@/database/test-template/schemas/question.schema';
+import {
+  TestTemplateDocument,
+  TestTemplateInput,
+} from '@/database/test-template/schemas/test-template.schema';
+import { TestTemplateApiService } from '@/lib/api/services/test-template.api-service';
 import { notifyError, notifyLoading, notifySuccess, removeNotification } from '@/lib/helpers';
 import { FormMode } from '@/lib/types';
 import { testSchema } from './schemas';
@@ -88,7 +91,7 @@ const TestForm = (props: Props) => {
     setValue('questions', questions);
   };
 
-  const handleCreate = async (data: TestSchemaType) => {
+  const handleFormSubmit = async (data: TestSchemaType) => {
     const notificationTexts = modeNoftificationTexts[mode];
     const notificationId = notifyLoading(notificationTexts.loading);
     const colorCourse = new String2HexCodeColor(0.5);
@@ -131,7 +134,7 @@ const TestForm = (props: Props) => {
         onClose={handleClose}
         onCloseAnimationEnd={handleCloseAnimationEnd}
       />
-      <form onSubmit={handleSubmit(handleCreate)}>
+      <form onSubmit={handleSubmit(handleFormSubmit)}>
         <div className='page__input-quiz'>
           <div className='form-input'>
             <Controller

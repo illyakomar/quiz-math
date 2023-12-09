@@ -1,29 +1,33 @@
-import { NextRequest, NextResponse } from 'next/server';
+import TestTemplate, {
+  TestTemplateDocument,
+} from '@/database/test-template/schemas/test-template.schema';
+import { NextRequestBodyType } from '@/utils/http/exceptions/classes/next-request-body-type';
+import { createRouteParamsHandler } from '@/utils/http/handler/helpers';
+import { protectWithAuth } from '@/utils/middleware/middleware/protect-with-auth.middleware';
+import { connectDb } from '@/utils/middleware/middleware/connect-db.middleware';
+import { parseBody } from '@/utils/middleware/middleware/parse-body.middleware';
+import { updateTestTemplateSchema } from '@/utils/http/shemas/test-template/test-template-update.schema';
+import { UpdateTestTemplateSchemaType } from '@/utils/http/shemas/test-template/types';
 
-import TestTemplate, { TestTemplateDocument } from '@/database/schemas/testTemplate.schema';
-import { createRouteParamsHandler } from '@/utils/createRouteHandler';
-import { connectDb } from '@/utils/middleware/middleware/connectDb.middleware';
+const parseBodyUpdate = parseBody(updateTestTemplateSchema);
 
 export const PATCH = createRouteParamsHandler(
-  [connectDb],
-  async (request: NextRequest, { params }: { params: { id: string } }) => {
-    const payload = await request.json();
-
-    const testTemplate = await TestTemplate.findOneAndUpdate<TestTemplateDocument>(
+  [protectWithAuth, parseBodyUpdate, connectDb],
+  async (
+    request: NextRequestBodyType<UpdateTestTemplateSchemaType>,
+    { params }: { params: { id: string } },
+  ) => {
+    return TestTemplate.findOneAndUpdate<TestTemplateDocument>(
       { _id: params.id },
-      payload,
-      {
-        new: true,
-      },
+      request.parsedBody,
+      { new: true },
     );
-    return testTemplate;
   },
 );
 
 export const DELETE = createRouteParamsHandler(
-  [connectDb],
-  async (_id: NextRequest, { params }: { params: { id: string } }) => {
-    const testTemplate = await TestTemplate.findOneAndDelete({ _id: params.id });
-    return testTemplate;
+  [protectWithAuth, connectDb],
+  async (_id: NextRequestBodyType, { params }: { params: { id: string } }) => {
+    return TestTemplate.findOneAndDelete({ _id: params.id });
   },
 );

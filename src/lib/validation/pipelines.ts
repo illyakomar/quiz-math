@@ -1,6 +1,6 @@
 import zod from 'zod';
 
-export const nonemptyString = (errorMessage: string) =>
+export const nonemptyString = (errorMessage?: string) =>
   zod
     .string()
     .transform((text) => text?.trim())

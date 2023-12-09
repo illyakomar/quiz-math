@@ -1,13 +1,19 @@
+import { getServerSession } from 'next-auth';
 import { Toaster } from 'react-hot-toast';
 
 import Sidebar from '@/components/sidebar/Sidebar';
+import { redirect } from 'next/navigation';
 
 export const metadata = {
   title: 'Quiz math',
   description: 'With love',
 };
 
-export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
+  const session = await getServerSession();
+
+  if (!session) redirect('/login');
+
   return (
     <div className='layout'>
       <Sidebar />

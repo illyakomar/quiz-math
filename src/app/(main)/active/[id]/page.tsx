@@ -1,12 +1,11 @@
-import Test from '@/database/schemas/test.schema';
-import connect from '@/database/config';
 import Results from '@/components/forms/results/Results';
+import Test from '@/database/test/schemas/test.schema';
+import { connectDb } from '@/utils/middleware/middleware/connect-db.middleware';
 
-export default async function Page({ params }: { params: { id: string } }) {
-  await connect();
+export default async function ActiveTest({ params }: { params: { id: string } }) {
+  await connectDb();
 
-  const data = await Test.findById(params.id);
-  const test = JSON.parse(JSON.stringify(data));
+  const test = await Test.findById(params.id);
 
   return (
     <>

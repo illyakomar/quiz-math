@@ -1,8 +1,8 @@
 import { HttpException } from './http.exception';
-import { HttpStatusCode } from '../../statusCode.enum';
+import { HttpStatusCodeEnum } from '../../status-code.enum';
 
 export class UnauthorizedException extends HttpException {
   constructor(message?: string) {
-    super('Bad Request', HttpStatusCode.UNAUTHORIZED, message);
+    super('Bad Request', HttpStatusCodeEnum.UNAUTHORIZED, message);
   }
 }

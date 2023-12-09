@@ -1,9 +1,9 @@
 import Card from '@/components/card/Card';
-import connect from '@/database/config';
-import Test from '@/database/schemas/test.schema';
+import Test from '@/database/test/schemas/test.schema';
+import { connectDb } from '@/utils/middleware/middleware/connect-db.middleware';
 
-export default async function Active() {
-  await connect();
+export default async function ActiveTests() {
+  await connectDb();
 
   const tests = await Test.find({ status: 'ACTIVE' });
 

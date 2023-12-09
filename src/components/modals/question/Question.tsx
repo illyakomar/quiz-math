@@ -8,8 +8,8 @@ import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import Input from '@/components/ui/Input';
 import Answer from '@/components/answer/Answer';
 import Button from '@/components/ui/Button';
-import { QuestionInput } from '@/database/schemas/question.schema';
-import { AnswerInput } from '@/database/schemas/answer.schema';
+import { QuestionInput } from '@/database/test-template/schemas/question.schema';
+import { AnswerInput } from '@/database/test/schemas/answer.schema';
 import { questionSchema } from './schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormMode } from '@/lib/types';
@@ -125,9 +125,9 @@ const QuestionModal = (props: Props) => {
             {errors.text && <p className='form-error'>{errors.text.message}</p>}
           </div>
           <div className='question-modal__answer-container'>{answersInputs}</div>
-          <div className='question-modal__error-container'>
+          {/* <div className='question-modal__error-container'>
             {errors.answers && <p className='form-error'>{errors.answers.correct?.message}</p>}
-          </div>
+          </div> */}
           <div className='questions__button-container'>
             <div
               className='questions__button'

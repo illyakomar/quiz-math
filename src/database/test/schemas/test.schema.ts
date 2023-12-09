@@ -1,7 +1,8 @@
 import mongoose, { Document } from 'mongoose';
 
-import { QuestionInput, questionSchema } from './question.schema';
+import { QuestionInput, questionSchema } from '../../test-template/schemas/question.schema';
 import { ParticipantInput, participantSchema } from './participant.schema';
+import { SerializableDocumentPOJO } from '@/database/types';
 
 const { Schema } = mongoose;
 
@@ -12,11 +13,11 @@ export interface TestInput {
   questions: QuestionInput[];
 }
 
-export interface TestDocument extends TestInput, Document {
+export interface TestOutput extends TestInput, SerializableDocumentPOJO {
   participants: ParticipantInput[];
-  createdAt: Date;
-  updatedAt: Date;
 }
+
+export interface TestDocument extends Omit<TestOutput, '_id'>, Document {}
 
 const testSchema = new Schema(
   {

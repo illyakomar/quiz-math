@@ -1,7 +1,7 @@
 'use client';
 
 import Participant from '@/components/participant/Participant';
-import { TestDocument } from '@/database/schemas/test.schema';
+import { TestDocument } from '@/database/test/schemas/test.schema';
 
 import '@/styles/components/_results.scss';
 

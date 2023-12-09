@@ -1,26 +1,29 @@
-import { NextRequest, NextResponse } from 'next/server';
+import Test from '@/database/test-template/schemas/test-template.schema';
+import { createRouteParamsHandler } from '@/utils/http/handler/helpers';
+import { NextRequestBodyType } from '@/utils/http/exceptions/classes/next-request-body-type';
+import { protectWithAuth } from '@/utils/middleware/middleware/protect-with-auth.middleware';
+import { connectDb } from '@/utils/middleware/middleware/connect-db.middleware';
+import { parseBody } from '@/utils/middleware/middleware/parse-body.middleware';
+import { updateTestSchema } from '@/utils/http/shemas/test/test-update.schema';
+import { UpdateTestSchemaType } from '@/utils/http/shemas/test/types';
 
-import connect from '@/database/config';
-import Test from '@/database/schemas/testTemplate.schema';
-import { createRouteParamsHandler } from '@/utils/createRouteHandler';
-import { connectDb } from '@/utils/middleware/middleware/connectDb.middleware';
+const parseBodyUpdate = parseBody(updateTestSchema);
 
 export const PATCH = createRouteParamsHandler(
-  [connectDb],
-  async (request: NextRequest, { params }: { params: { id: string } }) => {
-    const payload = await request.json();
-
-    const test = await Test.findOneAndUpdate({ _id: params.id }, payload, {
+  [protectWithAuth, parseBodyUpdate, connectDb],
+  async (
+    request: NextRequestBodyType<UpdateTestSchemaType>,
+    { params }: { params: { id: string } },
+  ) => {
+    return Test.findOneAndUpdate({ _id: params.id }, request.parsedBody, {
       new: true,
     });
-    return test;
   },
 );
 
 export const DELETE = createRouteParamsHandler(
-  [connectDb],
-  async (_id: NextRequest, { params }: { params: { id: string } }) => {
-    const test = await Test.findOneAndDelete({ _id: params.id });
-    return test;
+  [protectWithAuth, connectDb],
+  async (_request: NextRequestBodyType, { params }: { params: { id: string } }) => {
+    return Test.findOneAndDelete({ _id: params.id });
   },
 );
