@@ -1,5 +1,5 @@
-import { TestTemplateInput } from '@/database/models/testTemplate.model';
-import { ApiService } from './api.service';
+import { TestTemplateInput } from '@/database/test-template/test-template.schema';
+import { ApiService } from './api-service';
 import { ApiResponse } from '../types';
 
 export abstract class TestTemplateApiService {

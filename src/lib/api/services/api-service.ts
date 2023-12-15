@@ -51,7 +51,7 @@ export abstract class ApiService {
 
   public static async post<T = any>(
     url: string,
-    data?: any,
+    data: any,
     headers?: HeadersInit,
   ): Promise<ApiResponse<T>> {
     return this.makeRequestWithBody<T>(Methods.POST, url, data, headers);
@@ -59,7 +59,7 @@ export abstract class ApiService {
 
   public static async patch<T = any>(
     url: string,
-    data?: any,
+    data: any,
     headers?: HeadersInit,
   ): Promise<ApiResponse<T>> {
     return this.makeRequestWithBody<T>(Methods.PATCH, url, data, headers);

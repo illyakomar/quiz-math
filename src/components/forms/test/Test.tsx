@@ -11,9 +11,9 @@ import QuestionModal from '@/components/modals/question/Question';
 import Question from '@/components/question/Question';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
-import { QuestionInput } from '@/database/models/question.model';
-import { TestTemplateDocument, TestTemplateInput } from '@/database/models/testTemplate.model';
-import { TestTemplateApiService } from '@/lib/api/services/testTemplate.service';
+import { QuestionInput } from '@/database/shared/schemas/question.schema';
+import { TestTemplateOutput } from '@/database/test-template/test-template.schema';
+import { TestTemplateApiService } from '@/lib/api/services/test-template.api-service';
 import { notifyError, notifyLoading, notifySuccess, removeNotification } from '@/lib/helpers';
 import { FormMode } from '@/lib/types';
 import { testSchema } from './schemas';
@@ -32,7 +32,7 @@ const modeNoftificationTexts = {
   },
 };
 
-interface Props extends Partial<TestTemplateInput>, Pick<TestTemplateDocument, '_id'> {
+interface Props extends Partial<TestTemplateOutput> {
   mode: FormMode;
 }
 
@@ -88,7 +88,7 @@ const TestForm = (props: Props) => {
     setValue('questions', questions);
   };
 
-  const handleCreate = async (data: TestSchemaType) => {
+  const handleFormSubmit = async (data: TestSchemaType) => {
     const notificationTexts = modeNoftificationTexts[mode];
     const notificationId = notifyLoading(notificationTexts.loading);
     const colorCourse = new String2HexCodeColor(0.5);
@@ -96,8 +96,10 @@ const TestForm = (props: Props) => {
     let result;
     if (mode === 'create') {
       result = await TestTemplateApiService.createOne({ ...data, color });
-    } else {
+    } else if (_id) {
       result = await TestTemplateApiService.updateOne(_id, { ...data, color });
+    } else {
+      result = { error: 'Сталася невідома помилка' };
     }
     removeNotification(notificationId);
     if (result.error) {
@@ -131,7 +133,7 @@ const TestForm = (props: Props) => {
         onClose={handleClose}
         onCloseAnimationEnd={handleCloseAnimationEnd}
       />
-      <form onSubmit={handleSubmit(handleCreate)}>
+      <form onSubmit={handleSubmit(handleFormSubmit)}>
         <div className='page__input-quiz'>
           <div className='form-input'>
             <Controller

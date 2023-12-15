@@ -1,5 +1,7 @@
-import mongoose, { Types, Document } from 'mongoose';
+import mongoose, { Types, Document, Model } from 'mongoose';
 import bcrypt from 'bcrypt';
+
+import { SerializableDocumentPOJO } from '../types';
 
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
@@ -12,10 +14,10 @@ export interface UserInput {
   tests?: Types.ObjectId[];
 }
 
-export interface UserDocument extends UserInput, Document {
+export interface UserOutput extends UserInput, SerializableDocumentPOJO {}
+
+export interface UserDocument extends Omit<UserOutput, '_id'>, Document {
   fullName: string;
-  createdAt: Date;
-  updatedAt: Date;
   comparePassword: (password: string) => Promise<boolean>;
 }
 
@@ -51,5 +53,5 @@ userSchema.methods.comparePassword = async function (password: string): Promise<
   return bcrypt.compare(password, user.password).catch(() => false);
 };
 
-export default mongoose.models.User<UserDocument> ||
-  mongoose.model<UserDocument>('User', userSchema);
+export default (mongoose.models.User as Model<UserDocument>) ||
+  mongoose.model<UserInput>('User', userSchema);

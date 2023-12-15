@@ -36,7 +36,7 @@ const Sidebar = () => {
 
   return (
     <aside className='sidebar'>
-      <input className='sidebar__side-menu' type='checkbox' checked={isMenuActive} />
+      <input className='sidebar__side-menu' type='checkbox' defaultChecked={isMenuActive} />
       <label className='sidebar__hamb' onClick={handleCheckboxChange}>
         <span className='sidebar__hamb-line'></span>
       </label>

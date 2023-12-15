@@ -5,9 +5,12 @@ import { useRouter } from 'next/navigation';
 
 import Button from '../ui/Button';
 import QuizInfo from '../modals/quizInfo/QuizInfo';
-import { TestTemplateApiService } from '@/lib/api/services/testTemplate.service';
-import { TestApiService } from '@/lib/api/services/test.service';
-import { TestTemplateDocument, TestTemplateInput } from '@/database/models/testTemplate.model';
+import { TestTemplateApiService } from '@/lib/api/services/test-template.api-service';
+import { TestApiService } from '@/lib/api/services/test.api-service';
+import {
+  TestTemplateDocument,
+  TestTemplateInput,
+} from '@/database/test-template/test-template.schema';
 import { notifySuccess, notifyError, notifyLoading, removeNotification } from '@/lib/helpers';
 
 interface Props extends Pick<TestTemplateDocument, '_id'> {
@@ -33,8 +36,8 @@ const TestControl = (props: Props) => {
       return;
     }
     notifySuccess('Тестування успішно розпочато!');
+    router.push(`/active/${result?.data?._id?.toString()}`);
     router.refresh();
-    router.push(`/active/${result.data._id}`);
   };
 
   const handleDelete = async () => {
@@ -46,8 +49,8 @@ const TestControl = (props: Props) => {
       return;
     }
     notifySuccess('Тест успішно видалено!');
-    router.refresh();
     router.push('/created');
+    router.refresh();
   };
 
   return (

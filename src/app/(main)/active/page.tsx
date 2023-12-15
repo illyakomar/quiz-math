@@ -1,11 +1,11 @@
 import Card from '@/components/card/Card';
-import connect from '@/database/connection';
-import Test from '@/database/models/test.model';
+import TestService from '@/database/test/test.service';
+import { connectDb } from '@/utils/middleware/middleware/connect-db.middleware';
 
-export default async function Active() {
-  await connect();
+export default async function ActiveTests() {
+  await connectDb();
 
-  const tests = await Test.find({ status: 'ACTIVE' });
+  const tests = await TestService.selectMany({ status: 'ACTIVE' });
 
   const listCard = tests.map((test) => (
     <Card

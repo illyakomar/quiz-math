@@ -1,17 +1,17 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { createRouteHandler } from '@/utils/http/handler/helpers';
+import { connectDb } from '@/utils/middleware/middleware/connect-db.middleware';
+import { parseBody } from '@/utils/middleware/middleware/parse-body.middleware';
+import { protectWithAuth } from '@/utils/middleware/middleware/protect-with-auth.middleware';
+import { NextRequestBodyType } from '@/utils/http/exceptions/classes/next-request-body-type';
+import { createTestSchema } from '@/utils/http/shemas/test/test-create.schema';
+import { CreateTestSchemaType } from '@/utils/http/shemas/test/types';
+import TestService from '@/database/test/test.service';
 
-import connect from '@/database/connection';
-import Test from '@/database/models/test.model';
+const parseBodyCreate = parseBody(createTestSchema);
 
-export const POST = async (request: NextRequest) => {
-  try {
-    const payload = await request.json();
-
-    await connect();
-
-    const test = await Test.create(payload);
-    return new NextResponse(JSON.stringify(test.toObject()), { status: 201 });
-  } catch (error: any) {
-    return new NextResponse(error.message, { status: 500 });
-  }
-};
+export const POST = createRouteHandler(
+  [protectWithAuth, parseBodyCreate, connectDb],
+  async (request: NextRequestBodyType<CreateTestSchemaType>) => {
+    return TestService.createOne(request.parsedBody);
+  },
+);

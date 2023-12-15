@@ -1,11 +1,11 @@
-import Test from '@/database/models/test.model';
-import connect from '@/database/connection';
 import Results from '@/components/forms/results/Results';
+import TestService from '@/database/test/test.service';
+import { connectDb } from '@/utils/middleware/middleware/connect-db.middleware';
 
-export default async function Page({ params }: { params: { id: string } }) {
-  await connect();
+export default async function ActiveTest({ params }: { params: { id: string } }) {
+  await connectDb();
 
-  const test = await Test.findById(params.id);
+  const test = await TestService.selectOne({ _id: params.id });
 
   return (
     <>
@@ -17,7 +17,7 @@ export default async function Page({ params }: { params: { id: string } }) {
         </div>
       </div>
       <div className='page__line' />
-      <Results />
+      <Results {...test} />
     </>
   );
 }

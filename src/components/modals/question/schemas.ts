@@ -14,5 +14,16 @@ export const questionSchema = zod.object({
       isCorrect: zod.boolean(),
     })
     .array()
-    .min(2),
+    .superRefine((answers, ctx) => {
+      const isCorrectAnswerChosen = answers.some((answer) => answer.isCorrect);
+      console.log(isCorrectAnswerChosen);
+      if (!isCorrectAnswerChosen) {
+        ctx.addIssue({
+          fatal: true,
+          code: zod.ZodIssueCode.custom,
+          message: 'Виберіть правильну відповідь',
+          path: ['correct'],
+        });
+      }
+    }),
 });

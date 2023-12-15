@@ -1,13 +1,12 @@
 import TestForm from '@/components/forms/test/Test';
-import TestTemplate from '@/database/models/testTemplate.model';
-import connect from '@/database/connection';
 import TestControl from '@/components/testControl/TestControl';
+import { connectDb } from '@/utils/middleware/middleware/connect-db.middleware';
+import TestTemplateService from '@/database/test-template/test-template.service';
 
-export default async function Page({ params }: { params: { id: string } }) {
-  await connect();
+export default async function CreatedTestTemplate({ params }: { params: { id: string } }) {
+  await connectDb();
 
-  const data = await TestTemplate.findById(params.id);
-  const testTemplate = JSON.parse(JSON.stringify(data));
+  const testTemplate = await TestTemplateService.selectOne({ _id: params.id });
 
   return (
     <>

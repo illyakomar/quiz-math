@@ -11,7 +11,7 @@ import Button from '@/components/ui/Button';
 import { registerSchema } from '@/components/forms/register/schemas';
 import { notifyError, notifySuccess } from '@/lib/helpers';
 import { RegisterSchemaType } from './types';
-import { UserApiService } from '@/lib/api/services/user.service';
+import { UserApiService } from '@/lib/api/services/user.api-service';
 
 export default function RegisterForm() {
   const {

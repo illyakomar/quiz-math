@@ -1,32 +1,23 @@
-import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcrypt';
 
-import connect from '@/database/connection';
-import User from '@/database/models/user.model';
+import UserService from '@/database/user/user.service';
+import { createRouteHandler } from '@/utils/http/handler/helpers';
+import { connectDb } from '@/utils/middleware/middleware/connect-db.middleware';
+import { ConflictException } from '@/utils/http/exceptions/exceptions/conflict.exception';
+import { HttpExceptionMessageEnum } from '@/utils/http/exceptions/http-exception-messages.enum';
+import { NextRequestBodyType } from '@/utils/http/exceptions/classes/next-request-body-type';
 
-export const POST = async (request: NextRequest) => {
-  try {
-    const { firstName, lastName, email, password } = await request.json();
+export const POST = createRouteHandler([connectDb], async (request: NextRequestBodyType) => {
+  const { firstName, lastName, email, password } = request.parsedBody;
 
-    await connect();
+  const user = await UserService.selectOne({ email });
+  if (user) throw new ConflictException(HttpExceptionMessageEnum.USER_ALREADY_EXISTS);
 
-    const user = await User.findOne({ email });
-    if (user) {
-      return new NextResponse('Цей email вже зайнятий', {
-        status: 400,
-      });
-    }
-
-    const hashedPassword = await bcrypt.hash(password, 5);
-
-    const newUser = await User.create({
-      firstName,
-      lastName,
-      email,
-      password: hashedPassword,
-    });
-    return new NextResponse(JSON.stringify(newUser.toObject()), { status: 201 });
-  } catch (error: any) {
-    return new NextResponse(error.message, { status: 500 });
-  }
-};
+  const hashedPassword = await bcrypt.hash(password, 5);
+  return UserService.createOne({
+    firstName,
+    lastName,
+    email,
+    password: hashedPassword,
+  });
+});

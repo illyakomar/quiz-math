@@ -1,11 +1,13 @@
+import { EnvEnum } from './env.enum';
+
 export default abstract class EnvService {
-  public static get<T = NodeJS.ProcessEnv>(variableName: string): T {
-    const value = process.env[variableName];
-    if (!value) throw new Error(`Environment variable ${variableName} is not defined`);
+  public static get = <T = NodeJS.ProcessEnv>(variableName: EnvEnum): T => {
+    const variable = process.env[variableName];
+    if (!variable) throw Error(`Missing ${variableName} variable in .env config!`);
     try {
-      return JSON.parse(value);
+      return JSON.parse(variable);
     } catch {
-      return value as unknown as T;
+      return variable as unknown as T;
     }
-  }
+  };
 }

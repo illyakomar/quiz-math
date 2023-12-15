@@ -5,7 +5,7 @@ import { AiFillDelete } from 'react-icons/ai';
 
 import Input from '@/components/ui/Input';
 import Radio from '@/components/ui/Radio';
-import { AnswerInput } from '@/database/models/answer.model';
+import { AnswerInput } from '@/database/shared/schemas/answer.schema';
 
 import '@/styles/components/_answer.scss';
 
