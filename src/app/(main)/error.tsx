@@ -19,7 +19,7 @@ export default function Error(props: IProps) {
         <Button color='primary' onClick={reset}>
           Повторити
         </Button>
-        <Link href='/created' className='btn secondary'>
+        <Link href='/' className='btn secondary'>
           На головну
         </Link>
       </div>

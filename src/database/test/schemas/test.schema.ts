@@ -1,6 +1,6 @@
 import mongoose, { Document } from 'mongoose';
 
-import { QuestionInput, questionSchema } from '../../test-template/schemas/question.schema';
+import { QuestionInput, questionSchema } from '../../shared/schemas/question.schema';
 import { ParticipantInput, participantSchema } from './participant.schema';
 import { SerializableDocumentPOJO } from '@/database/types';
 

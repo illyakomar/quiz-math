@@ -1,11 +1,11 @@
 import Results from '@/components/forms/results/Results';
-import Test from '@/database/test/schemas/test.schema';
+import TestService from '@/database/test/test.service';
 import { connectDb } from '@/utils/middleware/middleware/connect-db.middleware';
 
 export default async function ActiveTest({ params }: { params: { id: string } }) {
   await connectDb();
 
-  const test = await Test.findById(params.id);
+  const test = await TestService.selectOne({ _id: params.id });
 
   return (
     <>

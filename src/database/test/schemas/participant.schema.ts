@@ -30,6 +30,3 @@ export const participantSchema = new Schema(
   },
   { timestamps: true },
 );
-
-export default mongoose.models.Participant<ParticipantDocument> ||
-  mongoose.model<ParticipantDocument>('Participant', participantSchema);

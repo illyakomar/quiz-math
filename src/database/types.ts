@@ -4,4 +4,4 @@ export type SerializableDocumentPOJO = {
   updatedAt: Date;
 };
 
-export type SelectOptions = { stringifiedId: boolean };
+export type SelectOptions = { asDocument: boolean };

@@ -10,7 +10,7 @@ import { TestApiService } from '@/lib/api/services/test.api-service';
 import {
   TestTemplateDocument,
   TestTemplateInput,
-} from '@/database/test-template/schemas/test-template.schema';
+} from '@/database/test-template/test-template.schema';
 import { notifySuccess, notifyError, notifyLoading, removeNotification } from '@/lib/helpers';
 
 interface Props extends Pick<TestTemplateDocument, '_id'> {
@@ -36,8 +36,8 @@ const TestControl = (props: Props) => {
       return;
     }
     notifySuccess('Тестування успішно розпочато!');
-    router.refresh();
     router.push(`/active/${result?.data?._id?.toString()}`);
+    router.refresh();
   };
 
   const handleDelete = async () => {
@@ -49,8 +49,8 @@ const TestControl = (props: Props) => {
       return;
     }
     notifySuccess('Тест успішно видалено!');
-    router.refresh();
     router.push('/created');
+    router.refresh();
   };
 
   return (

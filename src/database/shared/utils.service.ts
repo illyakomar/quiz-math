@@ -1,4 +1,4 @@
-import mongoose, { Document, HydratedDocument } from 'mongoose';
+import mongoose, { Document } from 'mongoose';
 
 abstract class UtilsService {
   public static async withMongooseTransaction<T = any>(
@@ -11,7 +11,7 @@ abstract class UtilsService {
     return result;
   }
 
-  public static stringifyId<T = any>(document: Document): T {
+  public static stringifyIds<T = any>(document: Document): T {
     return document.toObject({
       transform: (_, ret) => {
         ret._id = ret._id.toString();

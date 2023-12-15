@@ -4,7 +4,6 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import { UserDocument } from '@/database/user/user.schema';
 import EnvService from '@/env/env.service';
 import { EnvEnum } from '@/env/env.enum';
-import User from '@/database/user/user.schema';
 import { UnauthorizedException } from '@/utils/http/exceptions/exceptions/unathorized.exception';
 import { HttpExceptionMessageEnum } from '@/utils/http/exceptions/http-exception-messages.enum';
 import { isHttpException } from '@/utils/http/exceptions/helpers';
@@ -32,17 +31,15 @@ export const authOptions: AuthOptions = {
 
           await connectDb();
 
-          const user = await UserService.selectOne({
-            email: credentials?.email,
-          });
-
+          const user = await UserService.selectOne(
+            { email: credentials?.email },
+            { asDocument: true },
+          );
           if (!user) {
             throw new UnauthorizedException(HttpExceptionMessageEnum.AUTH_INCORRECT_CREDENTIALS);
           }
 
-          const isPasswordCorrect = await (user as UserDocument).comparePassword(
-            credentials.password,
-          );
+          const isPasswordCorrect = await user.comparePassword(credentials.password);
           if (!isPasswordCorrect) {
             throw new UnauthorizedException(HttpExceptionMessageEnum.AUTH_INCORRECT_CREDENTIALS);
           }

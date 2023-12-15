@@ -11,11 +11,8 @@ import QuestionModal from '@/components/modals/question/Question';
 import Question from '@/components/question/Question';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
-import { QuestionInput } from '@/database/test-template/schemas/question.schema';
-import {
-  TestTemplateDocument,
-  TestTemplateInput,
-} from '@/database/test-template/schemas/test-template.schema';
+import { QuestionInput } from '@/database/shared/schemas/question.schema';
+import { TestTemplateOutput } from '@/database/test-template/test-template.schema';
 import { TestTemplateApiService } from '@/lib/api/services/test-template.api-service';
 import { notifyError, notifyLoading, notifySuccess, removeNotification } from '@/lib/helpers';
 import { FormMode } from '@/lib/types';
@@ -35,7 +32,7 @@ const modeNoftificationTexts = {
   },
 };
 
-interface Props extends Partial<TestTemplateInput>, Pick<TestTemplateDocument, '_id'> {
+interface Props extends Partial<TestTemplateOutput> {
   mode: FormMode;
 }
 
@@ -99,8 +96,10 @@ const TestForm = (props: Props) => {
     let result;
     if (mode === 'create') {
       result = await TestTemplateApiService.createOne({ ...data, color });
-    } else {
+    } else if (_id) {
       result = await TestTemplateApiService.updateOne(_id, { ...data, color });
+    } else {
+      result = { error: 'Сталася невідома помилка' };
     }
     removeNotification(notificationId);
     if (result.error) {

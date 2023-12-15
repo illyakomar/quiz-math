@@ -1,11 +1,21 @@
+import Image from 'next/image';
+
 import LoginForm from '@/components/forms/login/Login';
-import { getServerSession } from 'next-auth';
-import { redirect } from 'next/navigation';
 
 export default async function Login() {
-  const session = await getServerSession();
-
-  if (session) redirect('/created');
-
-  return <LoginForm />;
+  return (
+    <div className='auth-page'>
+      <div className='auth-page__left'>
+        <div className='auth-page__left-container'>
+          <Image src={'/manLaptop.png'} priority width={640} height={450} alt='' />
+        </div>
+      </div>
+      <div className='auth-page__right'>
+        <div className='auth-page__right-container'>
+          <h1 className='right-container__logo'>QuizMath</h1>
+          <LoginForm />
+        </div>
+      </div>
+    </div>
+  );
 }

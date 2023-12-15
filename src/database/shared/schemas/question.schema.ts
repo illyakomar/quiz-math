@@ -1,7 +1,7 @@
 import { Schema, Document } from 'mongoose';
 
 import { SerializableDocumentPOJO } from '@/database/types';
-import { AnswerInput, answerSchema } from '../../test/schemas/answer.schema';
+import { AnswerInput, answerSchema } from './answer.schema';
 
 export interface QuestionInput {
   text: string;

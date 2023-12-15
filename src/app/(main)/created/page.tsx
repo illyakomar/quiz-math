@@ -2,13 +2,13 @@ import Link from 'next/link';
 import { AiFillPlusCircle } from 'react-icons/ai';
 
 import Card from '@/components/card/Card';
-import TestTemplate from '@/database/test-template/schemas/test-template.schema';
 import { connectDb } from '@/utils/middleware/middleware/connect-db.middleware';
+import TestTemplateService from '@/database/test-template/test-template.service';
 
 export default async function CreatedTestTemlates() {
   await connectDb();
 
-  const tests = await TestTemplate.find();
+  const tests = await TestTemplateService.selectMany({});
 
   const listCard = tests.map((test) => (
     <Card

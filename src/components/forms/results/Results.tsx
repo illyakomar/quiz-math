@@ -1,11 +1,11 @@
 'use client';
 
 import Participant from '@/components/participant/Participant';
-import { TestDocument } from '@/database/test/schemas/test.schema';
+import { TestOutput } from '@/database/test/schemas/test.schema';
 
 import '@/styles/components/_results.scss';
 
-interface IProps extends TestDocument {}
+interface IProps extends TestOutput {}
 
 const Results = (props: IProps) => {
   const { title, questions, participants, status, color } = props;

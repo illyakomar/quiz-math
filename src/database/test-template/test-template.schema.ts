@@ -1,7 +1,7 @@
 import mongoose, { Document } from 'mongoose';
 
 import { SerializableDocumentPOJO } from '@/database/types';
-import { QuestionInput, questionSchema } from './question.schema';
+import { QuestionInput, questionSchema } from '../shared/schemas/question.schema';
 
 const { Schema } = mongoose;
 

@@ -1,11 +1,21 @@
+import Image from 'next/image';
+
 import RegisterForm from '@/components/forms/register/Register';
-import { getServerSession } from 'next-auth';
-import { redirect } from 'next/navigation';
 
 export default async function Register() {
-  const session = await getServerSession();
-
-  if (session) redirect('/created');
-
-  return <RegisterForm />;
+  return (
+    <div className='auth-page'>
+      <div className='auth-page__left'>
+        <div className='auth-page__left-container'>
+          <Image src={'/womanLaptop.png'} priority width={640} height={450} alt='' />
+        </div>
+      </div>
+      <div className='auth-page__right'>
+        <div className='auth-page__right-container'>
+          <h1 className='right-container__logo'>QuizMath</h1>
+          <RegisterForm />
+        </div>
+      </div>
+    </div>
+  );
 }

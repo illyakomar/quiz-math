@@ -6,7 +6,7 @@ export default function NotFound() {
       <div className='error__title'>Сторінку не знайдено</div>
       <div className='error__subtitle'>Не вдалося знайти сторінку за вашим запитом</div>
       <div className='error__buttons-container'>
-        <Link href='/created' className='btn primary'>
+        <Link href='/' className='btn primary'>
           На головну
         </Link>
       </div>

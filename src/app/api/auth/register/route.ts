@@ -1,6 +1,5 @@
 import bcrypt from 'bcrypt';
 
-import User from '@/database/user/user.schema';
 import UserService from '@/database/user/user.service';
 import { createRouteHandler } from '@/utils/http/handler/helpers';
 import { connectDb } from '@/utils/middleware/middleware/connect-db.middleware';
@@ -11,7 +10,7 @@ import { NextRequestBodyType } from '@/utils/http/exceptions/classes/next-reques
 export const POST = createRouteHandler([connectDb], async (request: NextRequestBodyType) => {
   const { firstName, lastName, email, password } = request.parsedBody;
 
-  const user = await User.findOne({ email });
+  const user = await UserService.selectOne({ email });
   if (user) throw new ConflictException(HttpExceptionMessageEnum.USER_ALREADY_EXISTS);
 
   const hashedPassword = await bcrypt.hash(password, 5);
