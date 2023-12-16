@@ -5,7 +5,7 @@ import { execMiddleware } from '../../middleware/helpers';
 import { handleHttpException } from '../exceptions/helpers';
 import { HttpStatusCodeEnum } from '../status-code.enum';
 import { NextHandler, NextParamsHandler } from './types';
-import { NextRequestBodyType } from '../exceptions/classes/next-request-body-type';
+import { NextRequestBodyType } from '../../middleware/classes/next-request-body-type';
 
 export const createRouteHandler =
   (middlewares: Middleware[], handler: NextHandler) =>

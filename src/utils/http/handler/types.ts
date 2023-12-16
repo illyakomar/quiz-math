@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-import { NextRequestBodyType } from '../exceptions/classes/next-request-body-type';
+import { NextRequestBodyType } from '../../middleware/classes/next-request-body-type';
 
 export type NextHandler = (
   request: NextRequestBodyType,

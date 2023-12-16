@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 import { Middleware } from './types';
-import { NextRequestBodyType } from '../http/exceptions/classes/next-request-body-type';
+import { NextRequestBodyType } from './classes/next-request-body-type';
 
 export async function execMiddleware(
   middleware: Middleware[],

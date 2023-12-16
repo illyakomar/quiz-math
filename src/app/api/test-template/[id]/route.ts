@@ -1,4 +1,4 @@
-import { NextRequestBodyType } from '@/utils/http/exceptions/classes/next-request-body-type';
+import { NextRequestBodyType } from '@/utils/middleware/classes/next-request-body-type';
 import { createRouteParamsHandler } from '@/utils/http/handler/helpers';
 import { protectWithAuth } from '@/utils/middleware/middleware/protect-with-auth.middleware';
 import { connectDb } from '@/utils/middleware/middleware/connect-db.middleware';
