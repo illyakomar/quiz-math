@@ -1,23 +1,12 @@
 import zod from 'zod';
 
 import { nonemptyString } from '@/lib/validation/pipelines';
+import { questionSchema } from '@/components/modals/question/schemas';
 
 export const testSchema = zod.object({
   title: zod.string({ required_error: 'Введіть назву' }).pipe(nonemptyString('Введіть назву')),
   questions: zod
-    .object({
-      text: zod.string(),
-      answers: zod
-        .object({
-          text: zod.string(),
-          isCorrect: zod.boolean(),
-        })
-        .array(),
-    })
-    .array()
+    .array(questionSchema)
     .default([])
-    .refine((questions) => {
-      if (!questions || !questions.length) return false;
-      return true;
-    }, 'Додайте хоча б одне питання'),
+    .refine((questions) => questions.length, 'Додайте хоча б одне питання'),
 });
