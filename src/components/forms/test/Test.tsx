@@ -46,8 +46,9 @@ const TestForm = (props: Props) => {
   const {
     control,
     setValue,
+    trigger,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, isSubmitted },
   } = useForm<TestSchemaType>({
     mode: 'onSubmit',
     reValidateMode: 'onChange',
@@ -78,6 +79,7 @@ const TestForm = (props: Props) => {
     if (!formQuestions || !formQuestions.length) return;
     formQuestions.splice(index, 1);
     setValue('questions', formQuestions);
+    if (isSubmitted) trigger('questions');
   };
 
   const handleQuestionModalSumbit = (question: QuestionInput) => {
@@ -86,6 +88,7 @@ const TestForm = (props: Props) => {
     else if (modalMode === 'edit' && selectedQuestionIndex !== -1)
       questions[selectedQuestionIndex] = question;
     setValue('questions', questions);
+    if (isSubmitted) trigger('questions');
   };
 
   const handleFormSubmit = async (data: TestSchemaType) => {

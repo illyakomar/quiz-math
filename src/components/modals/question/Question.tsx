@@ -41,7 +41,7 @@ const QuestionModal = (props: Props) => {
     reset,
     formState: { errors },
   } = useForm<QuestionSchemaType>({
-    mode: 'onChange',
+    mode: 'onSubmit',
     reValidateMode: 'onChange',
     resolver: zodResolver(questionSchema),
     defaultValues: {
@@ -74,7 +74,7 @@ const QuestionModal = (props: Props) => {
   const removeAnswerField = (index: number) => {
     if (fields.length > 2) remove(index);
   };
-  console.log(errors);
+
   useEffect(() => {
     if (text && answers?.length) reset({ text, answers });
   }, [reset, text, answers]);
@@ -125,9 +125,11 @@ const QuestionModal = (props: Props) => {
             {errors.text && <p className='form-error'>{errors.text.message}</p>}
           </div>
           <div className='question-modal__answer-container'>{answersInputs}</div>
-          {/* <div className='question-modal__error-container'>
-            {errors.answers && <p className='form-error'>{errors.answers.correct?.message}</p>}
-          </div> */}
+          <div className='question-modal__error-container'>
+            {errors.isCoorectChoosen && (
+              <p className='form-error'>{errors.isCoorectChoosen?.message}</p>
+            )}
+          </div>
           <div className='questions__button-container'>
             <div
               className='questions__button'
