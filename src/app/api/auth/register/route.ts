@@ -5,7 +5,7 @@ import { createRouteHandler } from '@/utils/http/handler/helpers';
 import { connectDb } from '@/utils/middleware/middleware/connect-db.middleware';
 import { ConflictException } from '@/utils/http/exceptions/exceptions/conflict.exception';
 import { HttpExceptionMessageEnum } from '@/utils/http/exceptions/http-exception-messages.enum';
-import { NextRequestBodyType } from '@/utils/http/exceptions/classes/next-request-body-type';
+import { NextRequestBodyType } from '@/utils/middleware/classes/next-request-body-type';
 
 export const POST = createRouteHandler([connectDb], async (request: NextRequestBodyType) => {
   const { firstName, lastName, email, password } = request.parsedBody;

@@ -1,6 +1,6 @@
 import { Schema } from 'zod';
 
-import { NextRequestBodyType } from '@/utils/http/exceptions/classes/next-request-body-type';
+import { NextRequestBodyType } from '@/utils/middleware/classes/next-request-body-type';
 import { BadRequestException } from '@/utils/http/exceptions/exceptions/bad-request.exception';
 import { HttpExceptionMessageEnum } from '@/utils/http/exceptions/http-exception-messages.enum';
 
