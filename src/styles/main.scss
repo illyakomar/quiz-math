@@ -10,7 +10,9 @@
 // Components
 @import 'components/input';
 @import 'components/buttons';
+@import 'components/loadingDualSpinner';
 
 // Pages
 @import 'pages/base';
 @import 'pages/error';
+@import 'pages/loading';
