@@ -2,7 +2,7 @@ import Results from '@/components/forms/results/Results';
 import TestService from '@/database/test/test.service';
 import { connectDb } from '@/utils/middleware/middleware/connect-db.middleware';
 
-export default async function ActiveTest({ params }: { params: { id: string } }) {
+export default async function ActiveTestInfo({ params }: { params: { id: string } }) {
   await connectDb();
 
   const test = await TestService.selectOne({ _id: params.id });

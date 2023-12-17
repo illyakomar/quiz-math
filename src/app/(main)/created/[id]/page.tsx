@@ -3,7 +3,7 @@ import TestControl from '@/components/testControl/TestControl';
 import { connectDb } from '@/utils/middleware/middleware/connect-db.middleware';
 import TestTemplateService from '@/database/test-template/test-template.service';
 
-export default async function CreatedTestTemplate({ params }: { params: { id: string } }) {
+export default async function CreatedTestInfo({ params }: { params: { id: string } }) {
   await connectDb();
 
   const testTemplate = await TestTemplateService.selectOne({ _id: params.id });
