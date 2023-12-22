@@ -1,8 +1,9 @@
 'use client';
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm, useWatch } from 'react-hook-form';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { String2HexCodeColor } from 'string-to-hex-code-color';
@@ -42,6 +43,8 @@ const TestForm = (props: Props) => {
   const [showModal, setShowModal] = useState(false);
   const [modalMode, setModalMode] = useState<FormMode>('create');
   const [selectedQuestionIndex, setSelectedQuestionIndex] = useState(-1);
+
+  const { data: session } = useSession();
 
   const {
     control,
@@ -92,13 +95,14 @@ const TestForm = (props: Props) => {
   };
 
   const handleFormSubmit = async (data: TestSchemaType) => {
+    if (!session) return;
     const notificationTexts = modeNoftificationTexts[mode];
     const notificationId = notifyLoading(notificationTexts.loading);
     const colorCourse = new String2HexCodeColor(0.5);
     const color = colorCourse.stringToColor(data.title);
     let result;
     if (mode === 'create') {
-      result = await TestTemplateApiService.createOne({ ...data, color });
+      result = await TestTemplateApiService.createOne({ ...data, color, owner: session.user.id });
     } else if (_id) {
       result = await TestTemplateApiService.updateOne(_id, { ...data, color });
     } else {
@@ -158,7 +162,7 @@ const TestForm = (props: Props) => {
             {errors.title && <p className='form-error'>{errors.title.message}</p>}
           </div>
         </div>
-        <div className='page__question-container'>
+        <div className={`page__question-container ${isSubmitting && 'disabled-container'}`}>
           <div className='questions'>
             <p className='questions__title'>Питання:</p>
             <div className='questions__list'>{renderQuestionsList()}</div>
@@ -174,10 +178,14 @@ const TestForm = (props: Props) => {
           </div>
         </div>
         <div className='page__button-footer'>
-          <Button color='secondary' onClick={() => router.push('/created')}>
+          <Button
+            color='secondary'
+            disabled={isSubmitting}
+            onClick={() => router.push('/created')}
+          >
             Назад
           </Button>
-          <Button type='submit' color='primary'>
+          <Button type='submit' color='primary' disabled={isSubmitting}>
             {mode === 'create' ? 'Створити' : 'Оновити'}
           </Button>
         </div>

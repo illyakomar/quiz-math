@@ -1,12 +1,21 @@
+import { getServerSession } from 'next-auth';
+
 import TestForm from '@/components/forms/test/Test';
-import TestControl from '@/components/testControl/TestControl';
+import TestTemplateControl from '@/components/controls/TestTemplate';
 import { connectDb } from '@/utils/middleware/middleware/connect-db.middleware';
 import TestTemplateService from '@/database/test-template/test-template.service';
+import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 
-export default async function CreatedTestTemplate({ params }: { params: { id: string } }) {
+export default async function CreatedTestTemplateInfo({ params }: { params: { id: string } }) {
+  const session = await getServerSession(authOptions);
+
   await connectDb();
 
-  const testTemplate = await TestTemplateService.selectOne({ _id: params.id });
+  const testTemplate = await TestTemplateService.selectOne({
+    _id: params.id,
+    owner: session?.user.id,
+  });
+  testTemplate.owner = testTemplate.owner.toString();
 
   return (
     <>
@@ -16,7 +25,7 @@ export default async function CreatedTestTemplate({ params }: { params: { id: st
             <span>Інформація про тест</span>
           </div>
         </div>
-        <TestControl _id={testTemplate._id} testTemplate={testTemplate} />
+        <TestTemplateControl {...testTemplate} />
       </div>
       <div className='page__line' />
       <TestForm mode='edit' {...testTemplate} />

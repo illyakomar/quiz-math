@@ -12,5 +12,5 @@ export default withAuth(function middleware() {}, {
 });
 
 export const config = {
-  matcher: ['/created/:path*', '/active', '/completed'],
+  matcher: ['/created/:path*', '/active', '/finished'],
 };

@@ -6,7 +6,7 @@ import { AiOutlineClose, AiOutlinePlus } from 'react-icons/ai';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 
 import Input from '@/components/ui/Input';
-import Answer from '@/components/answer/Answer';
+import FormAnswer from '@/components/answers/Form';
 import Button from '@/components/ui/Button';
 import { QuestionInput } from '@/database/shared/schemas/question.schema';
 import { AnswerInput } from '@/database/shared/schemas/answer.schema';
@@ -14,8 +14,6 @@ import { questionSchema } from './schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormMode } from '@/lib/types';
 import { QuestionSchemaType } from './types';
-
-import '@/styles/components/_modal.scss';
 
 const fieldArrayName = 'answers';
 
@@ -71,6 +69,10 @@ const QuestionModal = (props: Props) => {
     );
   };
 
+  const addAnswerField = () => {
+    if (fields.length < 8) append(fieldArrayInputDefaultValues);
+  };
+
   const removeAnswerField = (index: number) => {
     if (fields.length > 2) remove(index);
   };
@@ -81,7 +83,7 @@ const QuestionModal = (props: Props) => {
 
   const answersInputs = fields.map((field, index) => {
     return (
-      <Answer
+      <FormAnswer
         key={field.id}
         index={index}
         control={control}
@@ -131,10 +133,7 @@ const QuestionModal = (props: Props) => {
             )}
           </div>
           <div className='questions__button-container'>
-            <div
-              className='questions__button'
-              onClick={() => append(fieldArrayInputDefaultValues)}
-            >
+            <div className='questions__button' onClick={addAnswerField}>
               <AiOutlinePlus size={22} />
               <p>Додати відповідь</p>
             </div>

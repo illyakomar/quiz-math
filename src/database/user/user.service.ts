@@ -15,7 +15,7 @@ abstract class UserService {
 
   public static async createOne(
     userInput: UserInput,
-    selectOptions?: SelectOptions & { asDocument: false },
+    selectOptions?: SelectOptions & { asDocument?: false },
   ): Promise<UserOutput>;
 
   public static async createOne(
@@ -37,7 +37,7 @@ abstract class UserService {
 
   public static async selectOne(
     query: FilterQuery<UserOutput>,
-    selectOptions?: SelectOptions & { asDocument: false },
+    selectOptions?: SelectOptions & { asDocument?: false },
     options?: QueryOptions,
   ): Promise<UserOutput>;
 
@@ -47,9 +47,11 @@ abstract class UserService {
     projection?: ProjectionType<UserOutput>,
     options?: QueryOptions,
   ): Promise<UserDocument | UserOutput> {
-    const user = (await User.findOne<UserDocument>(query, projection, options).catch(() => {
-      throw new NotFoundException(HttpExceptionMessageEnum.USER_NOT_FOUND);
-    })) as UserDocument;
+    const user = await User.findOne<UserDocument>(query, projection, options)
+      .orFail()
+      .catch(() => {
+        throw new NotFoundException(HttpExceptionMessageEnum.USER_NOT_FOUND);
+      });
     if (selectOptions?.asDocument) return user;
     return UtilsService.stringifyIds<UserOutput>(user);
   }
@@ -58,13 +60,13 @@ abstract class UserService {
     query: FilterQuery<UserOutput>,
     selectOptions: SelectOptions & { asDocument: true },
     options?: QueryOptions,
-  ): Promise<UserOutput[]>;
+  ): Promise<UserDocument[]>;
 
   public static async selectMany(
     query: FilterQuery<UserOutput>,
-    selectOptions?: SelectOptions & { asDocument: false },
+    selectOptions?: SelectOptions & { asDocument?: false },
     options?: QueryOptions,
-  ): Promise<UserDocument[]>;
+  ): Promise<UserOutput[]>;
 
   public static async selectMany(
     query: FilterQuery<UserOutput>,
@@ -72,10 +74,9 @@ abstract class UserService {
     projection?: ProjectionType<UserOutput>,
     options?: QueryOptions,
   ): Promise<UserDocument[] | UserOutput[]> {
-    const users = (await User.find<UserDocument>(query, projection, options).catch(() => {
+    const users = await User.find<UserDocument>(query, projection, options).catch(() => {
       throw new NotFoundException(HttpExceptionMessageEnum.USERS_NOT_FOUND);
-    })) as UserDocument[];
-    if (!users.length) return [];
+    });
     if (!selectOptions?.asDocument) return users;
     return users.map((user) => UtilsService.stringifyIds<UserOutput>(user));
   }
@@ -89,7 +90,7 @@ abstract class UserService {
   public static async updateOne(
     query: FilterQuery<UserOutput>,
     userInput: UserInput,
-    selectOptions?: SelectOptions & { asDocument: false },
+    selectOptions?: SelectOptions & { asDocument?: false },
   ): Promise<UserOutput>;
 
   public static async updateOne(
@@ -97,11 +98,11 @@ abstract class UserService {
     userInput: UserInput,
     selectOptions?: SelectOptions,
   ): Promise<UserDocument | UserOutput> {
-    const { _id } = (await User.findOneAndUpdate<UserInput>(query, userInput, { new: true }).catch(
-      () => {
-        throw new ConflictException(HttpExceptionMessageEnum.TEST_TEMPLATE_ALREADY_EXISTS);
-      },
-    )) as UserDocument;
+    const { _id } = await User.findOneAndUpdate<UserDocument>(query, userInput, { new: true })
+      .orFail()
+      .catch(() => {
+        throw new NotFoundException(HttpExceptionMessageEnum.USER_NOT_FOUND);
+      });
     if (selectOptions?.asDocument) return this.selectOne({ _id }, { asDocument: true });
     return this.selectOne({ _id }, { asDocument: false });
   }
@@ -114,7 +115,7 @@ abstract class UserService {
 
   public static async deleteOne(
     query: FilterQuery<UserOutput>,
-    selectOptions?: SelectOptions & { asDocument: false },
+    selectOptions?: SelectOptions & { asDocument?: false },
     options?: QueryOptions,
   ): Promise<UserOutput>;
 
@@ -123,9 +124,11 @@ abstract class UserService {
     selectOptions?: SelectOptions,
     options?: QueryOptions,
   ): Promise<UserDocument | UserOutput> {
-    const user = (await User.findOneAndDelete<UserInput>(query, options).catch(() => {
-      throw new ConflictException(HttpExceptionMessageEnum.TEST_TEMPLATE_ALREADY_EXISTS);
-    })) as UserDocument;
+    const user = await User.findOneAndDelete<UserDocument>(query, options)
+      .orFail()
+      .catch(() => {
+        throw new NotFoundException(HttpExceptionMessageEnum.USER_NOT_FOUND);
+      });
     if (selectOptions?.asDocument) user;
     return UtilsService.stringifyIds<UserOutput>(user);
   }

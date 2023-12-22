@@ -19,24 +19,32 @@
 
   color: #fff;
 
-  cursor: pointer;
-
   transition: background-color ease 0.35s;
 }
 
 .primary {
   background-color: #92a69d;
 
-  &:hover {
+  &:hover:enabled {
+    cursor: pointer;
     background-color: #9eb3a9;
+  }
+
+  &:disabled {
+    opacity: 0.6;
   }
 }
 
 .secondary {
   background-color: #aaaaaa;
 
-  &:hover {
+  &:hover:enabled {
+    cursor: pointer;
     background-color: #bdbdbd;
+  }
+
+  &:disabled {
+    opacity: 0.6;
   }
 }
 
@@ -46,7 +54,7 @@
   position: relative;
 
   &::before {
-    content: "";
+    content: '';
     width: 20px;
     height: 62px;
     background-color: #fff;

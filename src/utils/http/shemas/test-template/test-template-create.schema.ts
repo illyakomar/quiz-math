@@ -1,5 +1,6 @@
-import { nonemptyString } from '@/lib/validation/pipelines';
 import zod from 'zod';
+
+import { nonemptyString } from '@/lib/validation/pipelines';
 
 export const createTestTemplateSchema = zod.object({
   title: zod.string().pipe(nonemptyString()),
@@ -17,4 +18,5 @@ export const createTestTemplateSchema = zod.object({
     })
     .array()
     .min(1),
+  owner: zod.string().pipe(nonemptyString()),
 });

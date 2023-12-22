@@ -6,10 +6,9 @@ import { createTestSchema } from './test-create.schema';
 export const updateTestSchema = createTestSchema.extend({
   participants: zod
     .object({
-      firstName: zod.string().pipe(nonemptyString()),
-      lastName: zod.string().pipe(nonemptyString()),
+      fullName: zod.string().pipe(nonemptyString()),
       correctAnswersCount: zod.number(),
     })
-    .array()
-    .min(1),
+    .array(),
+  owner: zod.string().optional(),
 });

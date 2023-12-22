@@ -39,7 +39,6 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    tests: [{ type: ObjectId, ref: 'Test' }],
   },
   { timestamps: true },
 );

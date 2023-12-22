@@ -1,20 +1,22 @@
 'use client';
 
-import { ParticipantDocument } from '@/database/test/schemas/participant.schema';
+import { ParticipantOutput } from '@/database/test/schemas/participant.schema';
 
 import '@/styles/components/_results.scss';
 
-interface IProps extends Partial<ParticipantDocument> {}
+interface IProps extends ParticipantOutput {
+  questionsCount: number;
+}
 
 const Participant = (props: IProps) => {
-  const { firstName, lastName } = props;
+  const { fullName, correctAnswersCount, questionsCount } = props;
 
   return (
     <div className='participant'>
-      <p className='participant__text'>{`${firstName} ${lastName}`}</p>
-      <div className='answears-container'>
-        <div className='answears-container__correct'>{10}</div>
-        <div className='answears-container__incorrect'>{10}</div>
+      <p className='participant__text'>{`${fullName}`}</p>
+      <div className='answers-container'>
+        <div className='answers-container__correct'>{correctAnswersCount}</div>
+        <div className='answers-container__incorrect'>{questionsCount - correctAnswersCount}</div>
       </div>
     </div>
   );

@@ -5,19 +5,20 @@ import { TestOutput } from '@/database/test/schemas/test.schema';
 
 import '@/styles/components/_results.scss';
 
-interface IProps extends TestOutput {}
+interface IProps extends Pick<TestOutput, 'participants'> {
+  questionsCount: number;
+}
 
 const Results = (props: IProps) => {
-  const { title, questions, participants, status, color } = props;
+  const { participants, questionsCount } = props;
 
   const participantsList = participants?.map((participant, index) => (
-    <Participant key={index} {...participant} />
+    <Participant key={index} questionsCount={questionsCount} {...participant} />
   ));
 
   return (
     <>
-      <p className='results__member'>10 учасників</p>
-      <div className='results__buttons'>{/* <TestControl /> */}</div>
+      <p className='results__member'>Учасників: {participants.length}</p>
       <div className='results__form'>
         <p className='results__form__title'>Результати:</p>
         <div className='results__form__list'>{participantsList}</div>

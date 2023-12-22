@@ -5,8 +5,8 @@ import { SerializableDocumentPOJO } from '@/database/types';
 const { Schema } = mongoose;
 
 export interface ParticipantInput {
-  firstName: string;
-  lastName: string;
+  fullName: string;
+  correctAnswersCount: number;
 }
 
 export interface ParticipantOutput extends ParticipantInput, SerializableDocumentPOJO {}
@@ -15,11 +15,7 @@ export interface ParticipantDocument extends Omit<ParticipantOutput, '_id'>, Doc
 
 export const participantSchema = new Schema(
   {
-    firstName: {
-      type: String,
-      required: true,
-    },
-    lastName: {
+    fullName: {
       type: String,
       required: true,
     },

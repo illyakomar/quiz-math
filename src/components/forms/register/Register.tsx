@@ -2,14 +2,13 @@
 
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { Toaster } from 'react-hot-toast';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import Input from '@/components/ui/Input';
 import Button from '@/components/ui/Button';
 import { registerSchema } from '@/components/forms/register/schemas';
-import { notifyError, notifySuccess } from '@/lib/helpers';
+import { notifyError, notifyLoading, removeNotification } from '@/lib/helpers';
 import { RegisterSchemaType } from './types';
 import { UserApiService } from '@/lib/api/services/user.api-service';
 
@@ -27,9 +26,11 @@ export default function RegisterForm() {
   const router = useRouter();
 
   const handleRegisterSubmit = async (data: RegisterSchemaType): Promise<void> => {
+    const notificationId = notifyLoading('Реєстрація...');
     const { email, password } = data;
 
     const response = await UserApiService.createOne(data);
+    removeNotification(notificationId);
     if (response.error) {
       notifyError(response.error);
       return;
@@ -39,13 +40,11 @@ export default function RegisterForm() {
       notifyError(result.error);
       return;
     }
-    notifySuccess('Успішна реєстрація!');
     router.push('/created');
   };
 
   return (
     <form className='right-container__form' onSubmit={handleSubmit(handleRegisterSubmit)}>
-      <Toaster />
       <h2 className='right-container__form-title'>Реєстрація</h2>
       <hr className='right-container__form-divider' />
       <div className='right-container__form-inputs'>
@@ -57,7 +56,7 @@ export default function RegisterForm() {
             render={({ field: { onChange, onBlur, value } }) => (
               <Input
                 type='text'
-                name='name'
+                name='firstName'
                 label="Ім'я"
                 placeholder="Введіть ім'я"
                 onChange={onChange}
@@ -77,7 +76,7 @@ export default function RegisterForm() {
             render={({ field: { onChange, onBlur, value } }) => (
               <Input
                 type='text'
-                name='lastname'
+                name='lastName'
                 label='Прізвище'
                 placeholder='Введіть прізвище'
                 onChange={onChange}

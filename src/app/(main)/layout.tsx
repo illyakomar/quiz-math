@@ -9,7 +9,7 @@ export const metadata = {
   description: 'With love',
 };
 
-export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
+export default async function MainLayout({ children }: { children: React.ReactNode }) {
   const session = await getServerSession();
 
   if (!session) redirect('/login');

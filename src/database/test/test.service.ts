@@ -15,7 +15,7 @@ abstract class TestService {
 
   public static async createOne(
     testInput: TestInput,
-    selectOptions?: SelectOptions & { asDocument: false },
+    selectOptions?: SelectOptions & { asDocument?: false },
   ): Promise<TestOutput>;
 
   public static async createOne(
@@ -32,12 +32,14 @@ abstract class TestService {
   public static async selectOne(
     query: FilterQuery<TestOutput>,
     selectOptions: SelectOptions & { asDocument: true },
+    projection?: ProjectionType<TestOutput>,
     options?: QueryOptions,
   ): Promise<TestDocument>;
 
   public static async selectOne(
     query: FilterQuery<TestOutput>,
-    selectOptions?: SelectOptions & { asDocument: false },
+    selectOptions?: SelectOptions & { asDocument?: false },
+    projection?: ProjectionType<TestOutput>,
     options?: QueryOptions,
   ): Promise<TestOutput>;
 
@@ -47,9 +49,11 @@ abstract class TestService {
     projection?: ProjectionType<TestOutput>,
     options?: QueryOptions,
   ): Promise<TestDocument | TestOutput> {
-    const test = (await Test.findOne<TestDocument>(query, projection, options).catch(() => {
-      throw new NotFoundException(HttpExceptionMessageEnum.TEST_NOT_FOUND);
-    })) as TestDocument;
+    const test = await Test.findOne<TestDocument>(query, projection, options)
+      .orFail()
+      .catch(() => {
+        throw new NotFoundException(HttpExceptionMessageEnum.TEST_NOT_FOUND);
+      });
     if (selectOptions?.asDocument) return test;
     return UtilsService.stringifyIds<TestOutput>(test);
   }
@@ -57,14 +61,16 @@ abstract class TestService {
   public static async selectMany(
     query: FilterQuery<TestOutput>,
     selectOptions: SelectOptions & { asDocument: true },
+    projection?: ProjectionType<TestOutput>,
     options?: QueryOptions,
-  ): Promise<TestOutput[]>;
+  ): Promise<TestDocument[]>;
 
   public static async selectMany(
     query: FilterQuery<TestOutput>,
-    selectOptions?: SelectOptions & { asDocument: false },
+    selectOptions?: SelectOptions & { asDocument?: false },
+    projection?: ProjectionType<TestOutput>,
     options?: QueryOptions,
-  ): Promise<TestDocument[]>;
+  ): Promise<TestOutput[]>;
 
   public static async selectMany(
     query: FilterQuery<TestOutput>,
@@ -72,10 +78,9 @@ abstract class TestService {
     projection?: ProjectionType<TestOutput>,
     options?: QueryOptions,
   ): Promise<TestDocument[] | TestOutput[]> {
-    const tests = (await Test.find<TestDocument>(query, projection, options).catch(() => {
+    const tests = await Test.find<TestDocument>(query, projection, options).catch(() => {
       throw new NotFoundException(HttpExceptionMessageEnum.TESTS_NOT_FOUND);
-    })) as TestDocument[];
-    if (!tests.length) return [];
+    });
     if (selectOptions?.asDocument) return tests;
     return tests.map((test) => UtilsService.stringifyIds<TestOutput>(test));
   }
@@ -89,7 +94,7 @@ abstract class TestService {
   public static async updateOne(
     query: FilterQuery<TestOutput>,
     testInput: TestInput,
-    selectOptions?: SelectOptions & { asDocument: false },
+    selectOptions?: SelectOptions & { asDocument?: false },
   ): Promise<TestOutput>;
 
   public static async updateOne(
@@ -97,11 +102,13 @@ abstract class TestService {
     testInput: TestInput,
     selectOptions?: SelectOptions,
   ): Promise<TestDocument | TestOutput> {
-    const { _id } = (await Test.findOneAndUpdate<TestInput>(query, testInput, {
+    const { _id } = await Test.findOneAndUpdate<TestDocument>(query, testInput, {
       new: true,
-    }).catch(() => {
-      throw new ConflictException(HttpExceptionMessageEnum.TEST_ALREADY_EXISTS);
-    })) as TestDocument;
+    })
+      .orFail()
+      .catch(() => {
+        throw new NotFoundException(HttpExceptionMessageEnum.TEST_NOT_FOUND);
+      });
     if (selectOptions?.asDocument) return this.selectOne({ _id }, { asDocument: true });
     return this.selectOne({ _id }, { asDocument: false });
   }
@@ -114,7 +121,7 @@ abstract class TestService {
 
   public static async deleteOne(
     query: FilterQuery<TestOutput>,
-    selectOptions?: SelectOptions & { asDocument: false },
+    selectOptions?: SelectOptions & { asDocument?: false },
     options?: QueryOptions,
   ): Promise<TestOutput>;
 
@@ -123,9 +130,11 @@ abstract class TestService {
     selectOptions?: SelectOptions,
     options?: QueryOptions,
   ): Promise<TestDocument | TestOutput> {
-    const test = (await Test.findOneAndDelete<TestInput>(query, options).catch(() => {
-      throw new ConflictException(HttpExceptionMessageEnum.TEST_ALREADY_EXISTS);
-    })) as TestDocument;
+    const test = await Test.findOneAndDelete<TestDocument>(query, options)
+      .orFail()
+      .catch(() => {
+        throw new NotFoundException(HttpExceptionMessageEnum.TEST_NOT_FOUND);
+      });
     if (selectOptions?.asDocument) Test;
     return UtilsService.stringifyIds<TestOutput>(test);
   }

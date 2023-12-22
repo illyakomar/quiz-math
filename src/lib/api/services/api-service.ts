@@ -16,7 +16,7 @@ export abstract class ApiService {
   ): Promise<ApiResponse<T>> {
     try {
       const requestBody = method === Methods.DELETE ? { data } : data;
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/${url}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/${url}`, {
         method,
         headers,
         body: JSON.stringify(requestBody),

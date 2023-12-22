@@ -1,9 +1,5 @@
-import LoadingDualSpinner from '@/components/loading/DualSpinner';
+import LoadingWindow from '@/components/windows/loading/Loading';
 
 export default function MainLoading() {
-  return (
-    <div className='loading'>
-      <LoadingDualSpinner />
-    </div>
-  );
+  return <LoadingWindow />;
 }

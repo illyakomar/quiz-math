@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
 import { Middleware } from './types';
 import { NextRequestBodyType } from './classes/next-request-body-type';

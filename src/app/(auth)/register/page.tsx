@@ -7,7 +7,7 @@ export default async function Register() {
     <div className='auth-page'>
       <div className='auth-page__left'>
         <div className='auth-page__left-container'>
-          <Image src={'/womanLaptop.png'} priority width={640} height={450} alt='' />
+          <Image src={'/womanLaptop.png'} width={640} height={450} alt='' priority />
         </div>
       </div>
       <div className='auth-page__right'>

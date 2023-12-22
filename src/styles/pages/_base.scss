@@ -72,6 +72,122 @@
       grid-auto-flow: row;
     }
   }
+
+  &__center-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  &-empty {
+    &__title {
+      font-weight: 700;
+      font-size: 20px;
+    }
+  }
+
+  &-error {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    &__title {
+      font-weight: 700;
+      font-size: 25px;
+    }
+
+    &__subtitle {
+      font-size: 16px;
+      margin-top: 3px;
+    }
+
+    &__buttons-container {
+      display: grid;
+      width: 100%;
+      gap: 30px;
+      grid-auto-flow: column;
+      justify-content: center;
+      margin-top: 20px;
+
+      @media screen and (max-width: $sm) {
+        grid-auto-flow: row;
+        grid-template-columns: 0.6fr;
+      }
+    }
+  }
+
+  &-answer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    padding: 40px;
+    justify-content: flex-start;
+    align-items: center;
+    border-radius: 24px;
+
+    &__container {
+      position: absolute;
+      display: flex;
+      width: 100%;
+      height: 100%;
+      padding: 20px;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.2s ease-out;
+
+      @media screen and (max-width: $sm) {
+        padding: 5px;
+      }
+    }
+
+    &-correct {
+      background: #b0f1b3;
+    }
+
+    &-incorrect {
+      background: #fec3c3;
+    }
+
+    &__title {
+      font-size: 30px;
+      font-weight: 700;
+      color: #fff;
+
+      &-container {
+        max-width: 550px;
+        min-width: 210px;
+        width: 100%;
+        text-align: center;
+        padding: 25px;
+        border-radius: 30px;
+
+        &-correct {
+          background: #54e75a;
+        }
+
+        &-incorrect {
+          background: #ff8989;
+        }
+      }
+
+      @media screen and (max-width: $md) {
+        font-size: 20px;
+      }
+    }
+
+    &__image-container {
+      display: flex;
+      flex-grow: 1;
+      align-items: center;
+    }
+  }
 }
 
 .form-input {
@@ -83,4 +199,9 @@
 .form-error {
   font-size: 13px;
   color: #ff0101;
+}
+
+.hide {
+  opacity: 0;
+  pointer-events: none;
 }

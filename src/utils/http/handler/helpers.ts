@@ -4,11 +4,11 @@ import { Middleware } from '../../middleware/types';
 import { execMiddleware } from '../../middleware/helpers';
 import { handleHttpException } from '../exceptions/helpers';
 import { HttpStatusCodeEnum } from '../status-code.enum';
-import { NextHandler, NextParamsHandler } from './types';
+import { NextRouteHandler, NextRouteParamsHandler } from './types';
 import { NextRequestBodyType } from '../../middleware/classes/next-request-body-type';
 
 export const createRouteHandler =
-  (middlewares: Middleware[], handler: NextHandler) =>
+  (middlewares: Middleware[], handler: NextRouteHandler) =>
   async (request: NextRequest, response: NextResponse) => {
     try {
       const requestBodyType = new NextRequestBodyType(request);
@@ -21,7 +21,7 @@ export const createRouteHandler =
   };
 
 export const createRouteParamsHandler =
-  (middlewares: Middleware[], handler: NextParamsHandler) =>
+  (middlewares: Middleware[], handler: NextRouteParamsHandler) =>
   async (request: NextRequest, params: { params: { id: string } }) => {
     try {
       const requestBodyType = new NextRequestBodyType(request);

@@ -1,0 +1,153 @@
+@import '../abstracts/variables';
+
+.testing {
+  height: 100vh;
+  display: grid;
+  gap: 40px;
+  grid-template-rows: auto 2fr 3fr;
+
+  &__quiz-logo {
+    background: #f4f4f4;
+  }
+
+  &-results {
+    padding: 25px;
+    background: #fbf9f9;
+
+    &__results-container {
+      padding: 60px;
+      margin-top: 40px;
+      border-radius: 24px;
+      background: #fff;
+    }
+
+    &__results {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 65px;
+      margin-left: 50px;
+
+      &-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 75px;
+      }
+
+      &-title {
+        font-size: 30px;
+        font-weight: 700;
+        color: #696f79;
+      }
+    }
+
+    &__result {
+      &-container {
+        max-width: 600px;
+        width: 100%;
+        padding: 30px 40px 30px 40px;
+        text-align: center;
+        border-radius: 30px;
+
+        &-correct {
+          background: #54e75a;
+        }
+
+        &-incorrect {
+          background: #ff8989;
+        }
+      }
+
+      &-text {
+        font-size: 25px;
+        font-weight: 700;
+        color: #fff;
+      }
+    }
+  }
+}
+
+.quiz-logo {
+  padding-top: 25px;
+  padding-bottom: 25px;
+  font-size: 45px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-align: center;
+}
+
+.question-container {
+  display: grid;
+  grid-auto-rows: min-content;
+  align-content: center;
+  gap: 40px;
+  padding-left: 30px;
+  padding-right: 30px;
+
+  &__counter,
+  &__quiz-name {
+    display: grid;
+    align-items: center;
+    color: #696f79;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-align: center;
+
+    @media screen and (max-width: $sm) {
+      font-size: 17px;
+    }
+  }
+}
+
+.answers-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 35px;
+  margin-top: 25px;
+  border-radius: 30px;
+  background: #f4f4f4;
+  padding: 35px;
+
+  @media screen and (max-width: $sm) {
+    gap: 20px;
+    padding: 20px;
+  }
+}
+
+.answer-card {
+  display: flex;
+  border-radius: 24px;
+  padding: 25px;
+  flex: 1 1 320px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  min-height: 223px;
+  width: 100%;
+
+  @media screen and (max-width: $sm) {
+    min-height: 50px;
+    padding: 20px;
+  }
+
+  &__text {
+    color: #fff;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 700;
+    text-align: center;
+
+    @media screen and (max-width: $sm) {
+      font-size: 16px;
+    }
+  }
+
+  &:hover {
+    box-shadow: 10px 10px 80px 0px rgba(63, 39, 102, 0.15);
+  }
+}

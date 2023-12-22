@@ -7,7 +7,7 @@ export default async function Login() {
     <div className='auth-page'>
       <div className='auth-page__left'>
         <div className='auth-page__left-container'>
-          <Image src={'/manLaptop.png'} priority width={640} height={450} alt='' />
+          <Image src={'/manLaptop.png'} width={640} height={450} alt='' priority />
         </div>
       </div>
       <div className='auth-page__right'>

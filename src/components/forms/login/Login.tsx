@@ -2,14 +2,13 @@
 
 import { signIn } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Toaster } from 'react-hot-toast';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
 import { loginSchema } from '@/components/forms/login/schemas';
-import { notifyError } from '@/lib/helpers';
+import { notifyError, notifyLoading, removeNotification } from '@/lib/helpers';
 import { LoginSchemaType } from './types';
 
 export default function LoginForm() {
@@ -27,7 +26,9 @@ export default function LoginForm() {
   const searchParams = useSearchParams();
 
   const handleLoginSubmit = async (data: LoginSchemaType) => {
+    const notificationId = notifyLoading('Вхід...');
     const result = await signIn('credentials', { ...data, redirect: false });
+    removeNotification(notificationId);
     if (result?.error) {
       notifyError(result.error);
       return;
@@ -38,7 +39,6 @@ export default function LoginForm() {
 
   return (
     <form className='right-container__form' onSubmit={handleSubmit(handleLoginSubmit)}>
-      <Toaster />
       <h2 className='right-container__form-title'>Вхід</h2>
       <hr className='right-container__form-divider' />
       <div className='right-container__form-inputs'>
@@ -84,13 +84,13 @@ export default function LoginForm() {
         </div>
       </div>
       <div className='right-container__form-buttons'>
-        <Button type='submit' color='primary'>
+        <Button type='submit' color='primary' disabled={isSubmitting}>
           Увійти
         </Button>
         <p className='right-container__form-buttons-divider'>
           <span className='right-container__form-buttons-divider-text'>Або</span>
         </p>
-        <Button color='secondary' onClick={() => router.push('register')}>
+        <Button color='secondary' disabled={isSubmitting} onClick={() => router.push('register')}>
           Реєстрація
         </Button>
       </div>

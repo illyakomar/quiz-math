@@ -1,27 +1,37 @@
-.card{
+.card {
   display: grid;
   gap: 27px;
-  padding: 30px 35px 40px 35px;
+  padding: 30px 35px 30px 35px;
 
   border-radius: 24px;
-  background: #CFC4FF;
-  box-shadow: 10px 10px 80px 0px rgba(63, 39, 102, 0.10);
+  background: #cfc4ff;
+  box-shadow: 10px 10px 80px 0px rgba(63, 39, 102, 0.1);
 
   cursor: pointer;
 
-  &__info{
+  &__info {
     font-size: 18px;
     font-style: normal;
     font-weight: 700;
     color: #fff;
+
+    &-container {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    &:first-child {
+      margin-bottom: 20px;
+    }
   }
 
-  &__image-container{
+  &__image-container {
     display: grid;
     justify-items: center;
   }
 
-  &:hover{
+  &:hover {
     box-shadow: 10px 10px 80px 0px rgba(63, 39, 102, 0.15);
   }
 }

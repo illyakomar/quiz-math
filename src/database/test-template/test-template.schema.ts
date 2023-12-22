@@ -4,11 +4,13 @@ import { SerializableDocumentPOJO } from '@/database/types';
 import { QuestionInput, questionSchema } from '../shared/schemas/question.schema';
 
 const { Schema } = mongoose;
+const { ObjectId } = Schema;
 
 export interface TestTemplateInput {
   title: string;
   color: string;
   questions: QuestionInput[];
+  owner: string;
 }
 
 export interface TestTemplateOutput extends TestTemplateInput, SerializableDocumentPOJO {}
@@ -26,6 +28,7 @@ const testTemplateSchema = new Schema(
       required: true,
     },
     questions: [questionSchema],
+    owner: { type: ObjectId, ref: 'User' },
   },
   { timestamps: true },
 );

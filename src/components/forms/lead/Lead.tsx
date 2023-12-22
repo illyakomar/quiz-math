@@ -1,64 +1,60 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRouter, useSearchParams } from 'next/navigation';
 import { Controller, useForm } from 'react-hook-form';
 
-import { leadSchema } from '@/app/(test)/test/schemas';
-import { LeadSchemaType } from '@/app/(test)/test/types';
+import { leadSchema } from '@/app/(test)/[id]/schemas';
+import { LeadSchemaType } from '@/app/(test)/[id]/types';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
 
 interface Props {
-  name: string;
-  onClick: () => void;
+  title: string;
+  onSuccessfullSubmit: (data: LeadSchemaType) => void;
 }
 
 export default function LeadForm(props: Props) {
-  const { name, onClick } = props;
+  const { title, onSuccessfullSubmit } = props;
 
   const {
     control,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<LeadSchemaType>({
-    mode: 'onTouched',
+    mode: 'onSubmit',
     reValidateMode: 'onChange',
     resolver: zodResolver(leadSchema),
   });
 
-  const router = useRouter();
-  const searchParams = useSearchParams();
-
-  const handleLoginSubmit = async (data: LeadSchemaType) => {
-    onClick();
-  };
-
   return (
-    <form className='right-container__form' onSubmit={handleSubmit(handleLoginSubmit)}>
-      <h2 className='right-container__form-title'>{name}</h2>
+    <form className='right-container__form' onSubmit={handleSubmit(onSuccessfullSubmit)}>
+      <h2 className='right-container__form-title'>{title}</h2>
       <hr className='right-container__form-divider' />
       <div className='right-container__form-inputs'>
-        <Controller
-          control={control}
-          name='name'
-          render={({ field: { onBlur, onChange, value } }) => (
-            <Input
-              name='name'
-              label='Прізвище та ім’я'
-              placeholder='Ваше прізвище та ім’я'
-              onBlur={onBlur}
-              onChange={onChange}
-              value={value}
-              disabled={isSubmitting}
-            />
-          )}
-        />
-        {errors.name && <p>{errors.name.message}</p>}
+        <div className='form-input'>
+          <Controller
+            control={control}
+            name='fullName'
+            defaultValue=''
+            render={({ field: { onChange, onBlur, value } }) => (
+              <Input
+                type='text'
+                name='fullName'
+                label="Ім'я та прізвище"
+                placeholder="Введіть ім'я та прізвище"
+                onChange={onChange}
+                onBlur={onBlur}
+                value={value}
+                disabled={isSubmitting}
+              />
+            )}
+          />
+          {errors.fullName && <p className='form-error'>{errors.fullName.message}</p>}
+        </div>
       </div>
       <div className='right-container__form-buttons'>
         <Button type='submit' color='primary'>
-          Приєднатися
+          Розпочати тестування
         </Button>
       </div>
     </form>
