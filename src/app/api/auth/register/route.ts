@@ -15,10 +15,6 @@ export const POST = createRouteHandler(
   [parseBodyCreate, connectDb],
   async (request: NextRequestBodyType) => {
     const { firstName, lastName, email, password } = request.parsedBody;
-
-    const user = await UserService.selectOne({ email }).catch(() => {});
-    if (user) throw new ConflictException(HttpExceptionMessageEnum.USER_ALREADY_EXISTS);
-
     const hashedPassword = await bcrypt.hash(password, 5);
     return UserService.createOne({
       firstName,
