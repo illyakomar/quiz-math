@@ -1,7 +1,7 @@
 import mongoose, { Document } from 'mongoose';
 
 import { QuestionInput, questionSchema } from '../../shared/schemas/question.schema';
-import { ParticipantOutput, participantSchema } from './participant.schema';
+import { ParticipantInput, participantSchema } from './participant.schema';
 import { SerializableDocumentPOJO } from '@/database/types';
 
 const { Schema } = mongoose;
@@ -13,11 +13,10 @@ export interface TestInput {
   status: 'ACTIVE' | 'FINISHED';
   questions: QuestionInput[];
   owner?: string;
+  participants?: ParticipantInput[];
 }
 
-export interface TestOutput extends TestInput, SerializableDocumentPOJO {
-  participants: ParticipantOutput[];
-}
+export interface TestOutput extends TestInput, SerializableDocumentPOJO {}
 
 export interface TestDocument extends Omit<TestOutput, '_id'>, Document {}
 

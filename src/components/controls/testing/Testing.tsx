@@ -6,19 +6,19 @@ import { TestOutput } from '@/database/test/schemas/test.schema';
 import CorrectAnswerWindow from '@/components/windows/answers/Correct';
 import IncorrectAnswerWindow from '@/components/windows/answers/Incorrect';
 import ResultsTestingWindow from '@/components/windows/testing/Results';
-import { notificationLastingTime, testingAnswerColors } from './constants';
-import TestingAnswer from '../../answers/Testing';
 import LoadingWindow from '@/components/windows/loading/Loading';
 import { TestApiService } from '@/lib/api/services/test.api-service';
 import { ParticipantInput } from '@/database/test/schemas/participant.schema';
 import { notifyError } from '@/lib/helpers';
+import { notificationLastingTime, testingAnswerColors } from './constants';
+import TestingAnswer from '../../answers/Testing';
 
-interface IProps extends TestOutput {
+interface IProps extends Pick<TestOutput, '_id' | 'questions'> {
   participantFullName: string;
 }
 
 const TestingControl = (props: IProps) => {
-  const { _id, questions, participants, participantFullName, ...rest } = props;
+  const { _id, questions, participantFullName } = props;
 
   const [questionIndex, setQuestionIndex] = useState(0);
   const [showCorrect, setShowCorrect] = useState(false);
@@ -38,10 +38,8 @@ const TestingControl = (props: IProps) => {
     }
     setIsSubmitting(true);
 
-    const result = await TestApiService.updateOne(_id, {
-      ...rest,
-      questions,
-      participants: [...participants, participant.current],
+    const result = await TestApiService.updateOneParticipants(_id, {
+      participants: [participant.current],
     });
     if (result.error) {
       notifyError('Cталася невідома помилка!');

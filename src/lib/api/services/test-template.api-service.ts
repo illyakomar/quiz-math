@@ -8,19 +8,24 @@ import {
 
 export abstract class TestTemplateApiService {
   public static async createOne(
-    data?: CreateTestTemplateSchemaType,
+    data: CreateTestTemplateSchemaType,
+    headers?: HeadersInit,
   ): Promise<ApiResponse<TestTemplateOutput>> {
-    return ApiService.post<TestTemplateOutput>('test-template', data);
+    return ApiService.post<TestTemplateOutput>('test-template', data, headers);
   }
 
   public static async updateOne(
     id: string,
-    data?: UpdateTestTemplateSchemaType,
+    data: Partial<UpdateTestTemplateSchemaType>,
+    headers?: HeadersInit,
   ): Promise<ApiResponse<TestTemplateOutput>> {
-    return ApiService.patch<TestTemplateOutput>(`test-template/${id}`, data);
+    return ApiService.patch<TestTemplateOutput>(`test-template/${id}`, data, headers);
   }
 
-  public static async deleteOne(id: string): Promise<ApiResponse<TestTemplateOutput>> {
-    return ApiService.delete<TestTemplateOutput>(`test-template/${id}`);
+  public static async deleteOne(
+    id: string,
+    headers?: HeadersInit,
+  ): Promise<ApiResponse<TestTemplateOutput>> {
+    return ApiService.delete<TestTemplateOutput>(`test-template/${id}`, headers);
   }
 }

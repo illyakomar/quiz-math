@@ -10,7 +10,7 @@ export interface TestTemplateInput {
   title: string;
   color: string;
   questions: QuestionInput[];
-  owner: string;
+  owner?: string;
 }
 
 export interface TestTemplateOutput extends TestTemplateInput, SerializableDocumentPOJO {}

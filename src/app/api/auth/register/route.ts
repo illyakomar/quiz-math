@@ -6,8 +6,6 @@ import { connectDb } from '@/utils/middleware/middleware/connect-db.middleware';
 import { NextRequestBodyType } from '@/utils/middleware/classes/next-request-body-type';
 import { parseBody } from '@/utils/middleware/middleware/parse-body.middleware';
 import { createUserSchema } from '@/utils/http/shemas/user/user-create.schema';
-import { ConflictException } from '@/utils/http/exceptions/exceptions/conflict.exception';
-import { HttpExceptionMessageEnum } from '@/utils/http/exceptions/http-exception-messages.enum';
 
 const parseBodyCreate = parseBody(createUserSchema);
 

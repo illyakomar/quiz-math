@@ -1,4 +1,4 @@
-import { QueryOptions, FilterQuery, ProjectionType } from 'mongoose';
+import { QueryOptions, FilterQuery, ProjectionType, UpdateQuery } from 'mongoose';
 
 import { ConflictException } from '@/utils/http/exceptions/exceptions/conflict.exception';
 import { NotFoundException } from '@/utils/http/exceptions/exceptions/not-found.exception';
@@ -83,19 +83,19 @@ abstract class UserService {
 
   public static async updateOne(
     query: FilterQuery<UserOutput>,
-    userInput: UserInput,
+    userInput: UpdateQuery<UserInput> & Partial<UserInput>,
     selectOptions: SelectOptions & { asDocument: true },
   ): Promise<UserDocument>;
 
   public static async updateOne(
     query: FilterQuery<UserOutput>,
-    userInput: UserInput,
+    userInput: UpdateQuery<UserInput> & Partial<UserInput>,
     selectOptions?: SelectOptions & { asDocument?: false },
   ): Promise<UserOutput>;
 
   public static async updateOne(
     query: FilterQuery<UserOutput>,
-    userInput: UserInput,
+    userInput: UpdateQuery<UserInput> & Partial<UserInput>,
     selectOptions?: SelectOptions,
   ): Promise<UserDocument | UserOutput> {
     const { _id } = await User.findOneAndUpdate<UserDocument>(query, userInput, { new: true })

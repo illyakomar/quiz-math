@@ -1,4 +1,4 @@
-import { QueryOptions, FilterQuery, ProjectionType } from 'mongoose';
+import { QueryOptions, FilterQuery, ProjectionType, UpdateQuery } from 'mongoose';
 
 import { ConflictException } from '@/utils/http/exceptions/exceptions/conflict.exception';
 import { NotFoundException } from '@/utils/http/exceptions/exceptions/not-found.exception';
@@ -87,19 +87,19 @@ abstract class TestService {
 
   public static async updateOne(
     query: FilterQuery<TestOutput>,
-    testInput: TestInput,
+    testInput: UpdateQuery<TestInput> & Partial<TestInput>,
     selectOptions: SelectOptions & { asDocument: true },
   ): Promise<TestDocument>;
 
   public static async updateOne(
     query: FilterQuery<TestOutput>,
-    testInput: TestInput,
+    testInput: UpdateQuery<TestInput> & Partial<TestInput>,
     selectOptions?: SelectOptions & { asDocument?: false },
   ): Promise<TestOutput>;
 
   public static async updateOne(
     query: FilterQuery<TestOutput>,
-    testInput: TestInput,
+    testInput: UpdateQuery<TestInput> & Partial<TestInput>,
     selectOptions?: SelectOptions,
   ): Promise<TestDocument | TestOutput> {
     const { _id } = await Test.findOneAndUpdate<TestDocument>(query, testInput, {

@@ -10,6 +10,7 @@ import TestTemplate, {
   TestTemplateDocument,
   TestTemplateOutput,
 } from './test-template.schema';
+import { UpdateQuery } from 'mongoose';
 
 abstract class TestTemplateService {
   public static async createOne(
@@ -101,19 +102,19 @@ abstract class TestTemplateService {
 
   public static async updateOne(
     query: FilterQuery<TestTemplateOutput>,
-    testTemplateInput: TestTemplateInput,
+    testTemplateInput: UpdateQuery<TestTemplateInput> & Partial<TestTemplateInput>,
     selectOptions: SelectOptions & { asDocument: true },
   ): Promise<TestTemplateDocument>;
 
   public static async updateOne(
     query: FilterQuery<TestTemplateOutput>,
-    testTemplateInput: TestTemplateInput,
+    testTemplateInput: UpdateQuery<TestTemplateInput> & Partial<TestTemplateInput>,
     selectOptions?: SelectOptions & { asDocument?: false },
   ): Promise<TestTemplateOutput>;
 
   public static async updateOne(
     query: FilterQuery<TestTemplateOutput>,
-    testTemplateInput: TestTemplateInput,
+    testTemplateInput: UpdateQuery<TestTemplateInput> & Partial<TestTemplateInput>,
     selectOptions?: SelectOptions,
   ): Promise<TestTemplateDocument | TestTemplateOutput> {
     const { _id } = await TestTemplate.findOneAndUpdate<TestTemplateDocument>(

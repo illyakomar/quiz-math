@@ -12,7 +12,7 @@ const parseBodyUpdate = parseBody(updateTestSchema);
 export const PATCH = createRouteParamsHandler(
   [protectWithAuth, parseBodyUpdate, connectDb],
   async (
-    request: NextRequestBodyType<UpdateTestSchemaType>,
+    request: NextRequestBodyType<Partial<UpdateTestSchemaType>>,
     { params }: { params: { id: string } },
   ) => {
     return TestService.updateOne({ _id: params.id }, request.parsedBody);

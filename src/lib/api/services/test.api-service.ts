@@ -4,18 +4,33 @@ import { ApiResponse } from '../types';
 import { CreateTestSchemaType, UpdateTestSchemaType } from '@/utils/http/shemas/test/types';
 
 export abstract class TestApiService {
-  public static async createOne(data?: CreateTestSchemaType): Promise<ApiResponse<TestOutput>> {
-    return ApiService.post<TestOutput>('test', data);
+  public static async createOne(
+    data: CreateTestSchemaType,
+    headers?: HeadersInit,
+  ): Promise<ApiResponse<TestOutput>> {
+    return ApiService.post<TestOutput>('test', data, headers);
   }
 
   public static async updateOne(
     id: string,
-    data?: UpdateTestSchemaType,
+    data: Partial<UpdateTestSchemaType>,
+    headers?: HeadersInit,
   ): Promise<ApiResponse<TestOutput>> {
-    return ApiService.patch<TestOutput>(`test/${id}`, data);
+    return ApiService.patch<TestOutput>(`test/${id}`, data, headers);
   }
 
-  public static async deleteOne(id: string): Promise<ApiResponse<TestOutput>> {
-    return ApiService.delete<TestOutput>(`test/${id}`);
+  public static async updateOneParticipants(
+    id: string,
+    data: Pick<UpdateTestSchemaType, 'participants'>,
+    headers?: HeadersInit,
+  ): Promise<ApiResponse<TestOutput>> {
+    return ApiService.patch<TestOutput>(`test/${id}/participants`, data, headers);
+  }
+
+  public static async deleteOne(
+    id: string,
+    headers?: HeadersInit,
+  ): Promise<ApiResponse<TestOutput>> {
+    return ApiService.delete<TestOutput>(`test/${id}`, headers);
   }
 }
