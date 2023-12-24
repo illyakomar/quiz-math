@@ -18,7 +18,7 @@ const Results = (props: IProps) => {
 
   return (
     <>
-      <p className='results__member'>Учасників: {participants.length}</p>
+      <p className='results__member'>Учасників: {participants?.length || 0}</p>
       <div className='results__form'>
         <p className='results__form__title'>Результати:</p>
         <div className='results__form__list'>{participantsList}</div>

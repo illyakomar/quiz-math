@@ -75,6 +75,10 @@
         &-incorrect {
           background: #ff8989;
         }
+
+        @media screen and (max-width: $sm) {
+          padding: 20px;
+        }
       }
 
       &-text {

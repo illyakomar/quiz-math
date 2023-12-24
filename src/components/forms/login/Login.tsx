@@ -9,6 +9,7 @@ import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
 import { loginSchema } from '@/components/forms/login/schemas';
 import { notifyError, notifyLoading, removeNotification } from '@/lib/helpers';
+import ApiErrorMessageService from '@/lib/api/error-messages/api-error-message.service';
 import { LoginSchemaType } from './types';
 
 export default function LoginForm() {
@@ -30,7 +31,7 @@ export default function LoginForm() {
     const result = await signIn('credentials', { ...data, redirect: false });
     removeNotification(notificationId);
     if (result?.error) {
-      notifyError(result.error);
+      notifyError(ApiErrorMessageService.get(result.error as any), { id: notificationId });
       return;
     }
     const callbackUrl = searchParams.get('callbackUrl') || '/created';

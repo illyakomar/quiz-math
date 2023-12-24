@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 
 import { HttpException } from './exceptions/http.exception';
 import { HttpStatusCodeEnum } from '../status-code.enum';
-import { HttpExceptionMessageEnum } from './http-exception-messages.enum';
+import { HttpExceptionMessageEnum } from './http-exception-message.enum';
 
 export const isHttpException = (error: any): error is HttpException =>
   error instanceof HttpException;

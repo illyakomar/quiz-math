@@ -6,6 +6,8 @@ import { parseBody } from '@/utils/middleware/middleware/parse-body.middleware';
 import { updateTestTemplateSchema } from '@/utils/http/shemas/test-template/test-template-update.schema';
 import { UpdateTestTemplateSchemaType } from '@/utils/http/shemas/test-template/types';
 import TestTemplateService from '@/database/test-template/test-template.service';
+import { NotFoundException } from '@/utils/http/exceptions/exceptions/not-found.exception';
+import { HttpExceptionMessageEnum } from '@/utils/http/exceptions/http-exception-message.enum';
 
 const parseBodyUpdate = parseBody(updateTestTemplateSchema);
 
@@ -15,7 +17,6 @@ export const PATCH = createRouteParamsHandler(
     request: NextRequestBodyType<Partial<UpdateTestTemplateSchemaType>>,
     { params }: { params: { id: string } },
   ) => {
-    console.log(request.parsedBody);
     return TestTemplateService.updateOne({ _id: params.id }, request.parsedBody);
   },
 );

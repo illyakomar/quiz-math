@@ -5,7 +5,7 @@ import { UserDocument } from '@/database/user/user.schema';
 import EnvService from '@/env/env.service';
 import { EnvEnum } from '@/env/env.enum';
 import { UnauthorizedException } from '@/utils/http/exceptions/exceptions/unathorized.exception';
-import { HttpExceptionMessageEnum } from '@/utils/http/exceptions/http-exception-messages.enum';
+import { HttpExceptionMessageEnum } from '@/utils/http/exceptions/http-exception-message.enum';
 import { isHttpException } from '@/utils/http/exceptions/helpers';
 import { connectDb } from '@/utils/middleware/middleware/connect-db.middleware';
 import UserService from '@/database/user/user.service';

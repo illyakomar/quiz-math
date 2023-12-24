@@ -2,7 +2,7 @@ import { QueryOptions, FilterQuery, ProjectionType, UpdateQuery } from 'mongoose
 
 import { ConflictException } from '@/utils/http/exceptions/exceptions/conflict.exception';
 import { NotFoundException } from '@/utils/http/exceptions/exceptions/not-found.exception';
-import { HttpExceptionMessageEnum } from '@/utils/http/exceptions/http-exception-messages.enum';
+import { HttpExceptionMessageEnum } from '@/utils/http/exceptions/http-exception-message.enum';
 import UtilsService from '../shared/utils.service';
 import { SelectOptions } from '../types';
 import Test, { TestInput, TestDocument, TestOutput } from './schemas/test.schema';

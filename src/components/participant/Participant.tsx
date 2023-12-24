@@ -1,10 +1,10 @@
 'use client';
 
-import { ParticipantOutput } from '@/database/test/schemas/participant.schema';
+import { ParticipantInput } from '@/database/test/schemas/participant.schema';
 
 import '@/styles/components/_results.scss';
 
-interface IProps extends ParticipantOutput {
+interface IProps extends ParticipantInput {
   questionsCount: number;
 }
 

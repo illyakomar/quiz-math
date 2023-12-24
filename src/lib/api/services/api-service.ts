@@ -1,3 +1,4 @@
+import { HttpExceptionMessageEnum } from '@/utils/http/exceptions/http-exception-message.enum';
 import { ApiResponse } from '../types';
 
 enum Methods {
@@ -24,8 +25,11 @@ export abstract class ApiService {
       if (!response.ok) throw Error(await response.text());
       return { data: (await response.json()) as T };
     } catch (error: any) {
-      console.log(error);
-      return { error: error.message };
+      try {
+        return { error: JSON.parse(error.message) };
+      } catch {
+        return { error: { message: HttpExceptionMessageEnum.UNKNOWN_ERROR } };
+      }
     }
   }
 

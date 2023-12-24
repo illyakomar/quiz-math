@@ -14,7 +14,7 @@ export const createRouteHandler =
       const requestBodyType = new NextRequestBodyType(request);
       await execMiddleware(middlewares, requestBodyType, response);
       const result = await handler(requestBodyType);
-      return NextResponse.json(result, { status: HttpStatusCodeEnum.CREATED });
+      return NextResponse.json(result, { status: HttpStatusCodeEnum.OK });
     } catch (error: any) {
       return handleHttpException(error);
     }
@@ -27,7 +27,7 @@ export const createRouteParamsHandler =
       const requestBodyType = new NextRequestBodyType(request);
       await execMiddleware(middlewares, requestBodyType);
       const result = await handler(requestBodyType, params);
-      return NextResponse.json(result, { status: HttpStatusCodeEnum.CREATED });
+      return NextResponse.json(result, { status: HttpStatusCodeEnum.OK });
     } catch (error: any) {
       return handleHttpException(error);
     }

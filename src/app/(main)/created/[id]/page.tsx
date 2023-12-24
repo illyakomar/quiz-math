@@ -15,7 +15,8 @@ export default async function CreatedTestTemplateInfo({ params }: { params: { id
     _id: params.id,
     owner: session?.user.id,
   });
-  testTemplate.owner = testTemplate.owner.toString();
+
+  if (testTemplate.owner) testTemplate.owner = testTemplate.owner.toString();
 
   return (
     <>

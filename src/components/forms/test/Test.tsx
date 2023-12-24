@@ -15,12 +15,14 @@ import Input from '@/components/ui/Input';
 import { QuestionInput } from '@/database/shared/schemas/question.schema';
 import { TestTemplateOutput } from '@/database/test-template/test-template.schema';
 import { TestTemplateApiService } from '@/lib/api/services/test-template.api-service';
-import { notifyError, notifyLoading, notifySuccess, removeNotification } from '@/lib/helpers';
+import { notifyError, notifyLoading, notifySuccess } from '@/lib/helpers';
 import { FormMode } from '@/lib/types';
 import { testSchema } from './schemas';
 import { TestSchemaType } from './types';
 
 import '@/styles/components/_questions.scss';
+import { ApiErrorMessageEnum } from '@/lib/api/error-messages/api-error-message.enum';
+import ApiErrorMessageService from '@/lib/api/error-messages/api-error-message.service';
 
 const modeNoftificationTexts = {
   create: {
@@ -105,15 +107,15 @@ const TestForm = (props: Props) => {
       result = await TestTemplateApiService.createOne({ ...data, color, owner: session.user.id });
     } else if (_id) {
       result = await TestTemplateApiService.updateOne(_id, { ...data, color });
+      console.log(result);
     } else {
-      result = { error: 'Сталася невідома помилка' };
+      result = { error: ApiErrorMessageEnum.INTERNAL_SERVER_ERROR };
     }
-    removeNotification(notificationId);
     if (result.error) {
-      notifyError(result.error);
+      notifyError(ApiErrorMessageService.get(result.error.message), { id: notificationId });
       return;
     }
-    notifySuccess(notificationTexts.success);
+    notifySuccess(notificationTexts.success, { id: notificationId });
     router.refresh();
     router.push('/created');
   };

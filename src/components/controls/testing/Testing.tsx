@@ -10,6 +10,8 @@ import LoadingWindow from '@/components/windows/loading/Loading';
 import { TestApiService } from '@/lib/api/services/test.api-service';
 import { ParticipantInput } from '@/database/test/schemas/participant.schema';
 import { notifyError } from '@/lib/helpers';
+import { ApiErrorMessageEnum } from '@/lib/api/error-messages/api-error-message.enum';
+import ApiErrorMessageService from '@/lib/api/error-messages/api-error-message.service';
 import { notificationLastingTime, testingAnswerColors } from './constants';
 import TestingAnswer from '../../answers/Testing';
 
@@ -42,7 +44,7 @@ const TestingControl = (props: IProps) => {
       participants: [participant.current],
     });
     if (result.error) {
-      notifyError('Cталася невідома помилка!');
+      notifyError(ApiErrorMessageService.get(ApiErrorMessageEnum.INTERNAL_SERVER_ERROR));
       return;
     }
     setIsSubmitting(false);

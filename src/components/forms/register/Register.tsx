@@ -11,6 +11,8 @@ import { registerSchema } from '@/components/forms/register/schemas';
 import { notifyError, notifyLoading, removeNotification } from '@/lib/helpers';
 import { RegisterSchemaType } from './types';
 import { UserApiService } from '@/lib/api/services/user.api-service';
+import { ApiErrorMessageEnum } from '@/lib/api/error-messages/api-error-message.enum';
+import ApiErrorMessageService from '@/lib/api/error-messages/api-error-message.service';
 
 export default function RegisterForm() {
   const {
@@ -30,17 +32,19 @@ export default function RegisterForm() {
     const { email, password } = data;
 
     const response = await UserApiService.createOne(data);
-    removeNotification(notificationId);
     if (response.error) {
-      notifyError(response.error);
+      notifyError(ApiErrorMessageService.get(response.error.message), { id: notificationId });
       return;
     }
     const result = await signIn('credentials', { email, password });
     if (result?.error) {
-      notifyError(result.error);
+      notifyError(ApiErrorMessageService.get(ApiErrorMessageEnum.AUTH_UNKNOWN_ERROR), {
+        id: notificationId,
+      });
       return;
     }
-    router.push('/created');
+    removeNotification(notificationId);
+    router.replace('/created');
   };
 
   return (
