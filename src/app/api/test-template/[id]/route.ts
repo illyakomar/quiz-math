@@ -23,7 +23,7 @@ export const PATCH = createRouteParamsHandler(
 
 export const DELETE = createRouteParamsHandler(
   [protectWithAuth, connectDb],
-  async (_id: NextRequestBodyType, { params }: { params: { id: string } }) => {
+  async (_: NextRequestBodyType, { params }: { params: { id: string } }) => {
     return TestTemplateService.deleteOne({ _id: params.id });
   },
 );

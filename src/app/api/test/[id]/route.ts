@@ -21,7 +21,7 @@ export const PATCH = createRouteParamsHandler(
 
 export const DELETE = createRouteParamsHandler(
   [protectWithAuth, connectDb],
-  async (_request: NextRequestBodyType, { params }: { params: { id: string } }) => {
+  async (_: NextRequestBodyType, { params }: { params: { id: string } }) => {
     return TestService.deleteOne({ _id: params.id });
   },
 );

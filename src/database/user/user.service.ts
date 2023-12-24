@@ -26,7 +26,7 @@ abstract class UserService {
       throw new ConflictException(HttpExceptionMessageEnum.USER_ALREADY_EXISTS);
     });
     if (selectOptions?.asDocument) return this.selectOne({ _id }, { asDocument: true });
-    return this.selectOne({ _id }, { asDocument: false });
+    return this.selectOne({ _id });
   }
 
   public static async selectOne(
@@ -104,7 +104,7 @@ abstract class UserService {
         throw new NotFoundException(HttpExceptionMessageEnum.USER_NOT_FOUND);
       });
     if (selectOptions?.asDocument) return this.selectOne({ _id }, { asDocument: true });
-    return this.selectOne({ _id }, { asDocument: false });
+    return this.selectOne({ _id });
   }
 
   public static async deleteOne(

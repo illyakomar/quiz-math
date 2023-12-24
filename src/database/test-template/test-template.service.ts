@@ -31,7 +31,7 @@ abstract class TestTemplateService {
       throw new ConflictException(HttpExceptionMessageEnum.TEST_TEMPLATE_ALREADY_EXISTS);
     });
     if (selectOptions?.asDocument) return this.selectOne({ _id }, { asDocument: true });
-    return this.selectOne({ _id }, { asDocument: false });
+    return this.selectOne({ _id });
   }
 
   public static async selectOne(
@@ -127,7 +127,7 @@ abstract class TestTemplateService {
         throw new NotFoundException(HttpExceptionMessageEnum.TEST_TEMPLATE_NOT_FOUND);
       });
     if (selectOptions?.asDocument) return this.selectOne({ _id }, { asDocument: true });
-    return this.selectOne({ _id }, { asDocument: false });
+    return this.selectOne({ _id });
   }
 
   public static async deleteOne(
