@@ -26,7 +26,7 @@ export default function TestingWindow(props: IProps) {
     <div className='auth-page'>
       <div className='auth-page__left'>
         <div className='auth-page__left-container'>
-          <Image src={'/manHoldingPaper.png'} width={400} height={550} alt='' />
+          <Image src={'/manHoldingPaper.png'} width={400} height={550} alt='' priority />
         </div>
       </div>
       <div className='auth-page__right'>
